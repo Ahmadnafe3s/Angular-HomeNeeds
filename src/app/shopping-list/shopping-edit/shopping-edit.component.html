@@ -1,0 +1,42 @@
+<form>
+    <div class="row justify-content-center my-4 ">
+        <div class="col-md-5">
+            <label for="input1">Enter Item</label>
+            <input type="text" class="form-control" id="input1" placeholder="Enter Item" #ItemData>
+        </div>
+        <div class="col-md-3">
+            <label for="input2">Enter Amount</label>
+            <input type="number" class="form-control" id="input2" placeholder="Enter Amount" #AmountData>
+        </div>
+        <div class="text-center my-4">
+            <button class="btn btn-outline-warning" (click)="insertData({ItemData ,AmountData})">Add</button>
+            <button type="reset" class="btn btn-outline-danger ms-3">Reset</button>
+        </div>
+    </div>
+</form>
+
+
+
+<div class="row justify-content-center">
+    <div class="col-md-8" >
+        <table class="table table-hover table-dark table-bordered border-warning text-center">
+            <thead>
+              <tr>
+<!--                <th scope="col">SR. No.</th>-->
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="mb-2" *ngFor="let shoppingData of ShoppingList; let i = index">
+<!--                <th scope="row">{{this.i + 1}}</th>-->
+                <td>{{this.shoppingData.Item}}</td>
+                <td>{{this.shoppingData.Amount + ' Rs.'}}</td>
+                <td id="delete"><i class="bi bi-cart-x-fill" (click)="deleteData(i)" style="cursor: pointer"></i></td>
+              </tr>
+            </tbody>
+          </table>
+</div>
+
+

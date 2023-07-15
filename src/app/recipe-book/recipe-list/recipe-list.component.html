@@ -1,0 +1,24 @@
+<div class="boad">
+  <p><span class="text-danger">R</span>ecipe <span class="text-danger">B</span>ook</p>
+  <p class="boadfont">Explore the foodie in you.</p>
+</div>
+
+<!-- Display section -->
+
+<div class="row justify-content-evenly">
+  <div class="card border-warning bg-dark mx-5 my-3 text-white" style="max-width: 18rem;"
+    *ngFor="let recipe of recipeList; let index = index">
+    <div style="cursor: pointer;" class="card-header text-dark bg-warning" (click)="onRecipedetail(index)"><span class="text-dark fw-bold">Recipe Details >></span></div>
+    <div class="card-body">
+      <h5 class="card-title text-warning">{{recipe.RecipeName}}</h5>
+      <p class="card-text">{{recipe.Description}}</p>
+    </div>
+    <div class="icon1" appToggleWidth>
+      <i class="bi bi-box-arrow-right i1"></i>
+      <i class="bi bi-pencil ms-4  icon-pd clip" ></i>
+      <i class="bi bi-trash3 ps-2 icon-pd clip" (click)="deleterecipe(index)"></i>
+    </div>
+  </div>
+
+
+

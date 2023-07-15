@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  featureComponent = 'recipe';
   title = 'homeneeds';
+
+  onSelect(event: any) {
+    this.featureComponent = event;
+  }
+
 }

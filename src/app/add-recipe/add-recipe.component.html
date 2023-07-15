@@ -1,0 +1,34 @@
+<!-- Alert Section -->
+<div style="text-align: center;" [innerHTML]="formValidation">
+  <h1>Hello</h1>
+</div>
+<br>
+<br>
+<br>
+<!-- Form Section -->
+<div class="container col-md-10">
+<form class="row mb-2 justify-content-center " >
+  <p class="text-center"><span class="text-warning fw-bold">Please fill below information</span></p>
+  <div class="col-md-4">
+    <label for="input1">Enter Food Name</label>
+    <input type="text" class="form-control" id="input1" placeholder="Enter Food Name" #recipeName>
+  </div>
+  <div class="col-md-6">
+    <label for="input2">Enter Food Description</label>
+    <input type="text" class="form-control" id="input2" placeholder="Enter Food Description" #recipeDescription>
+  </div>
+
+  <div class="col-md-10 mt-2">
+    <label for="textarea">Enter Recipe Details</label>
+    <textarea class="form-control" style="height: 40px"  placeholder="Enter Recipe Details" #recipeDetails id="textarea"></textarea>
+  </div>
+
+  <!-- Buttons inside parent Div -->
+  <div class="text-center mt-3">
+    <a class="btn btn-outline-success" type="button" (click)="upsertdata({recipeName , recipeDescription , recipeDetails})"> Add
+      Recipe</a>
+    <button type="reset" class="btn btn-outline-danger ms-2">Reset</button>
+  </div>
+</form>
+</div>
+

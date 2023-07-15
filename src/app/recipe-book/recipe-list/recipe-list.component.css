@@ -1,0 +1,87 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+.clip {
+  transition: 0.2s;
+}
+
+.clip:hover {
+  color: white;
+}
+
+#Title-color {
+  color: red;
+}
+
+
+.card {
+  display: inline-block;
+  padding: 0px;
+  height: fit-content;
+}
+
+.icon1 {
+  width: 25px;
+  height: 25px;
+  background-color: #ffad0d;
+  border-radius: 20px;
+  /*text-align: center;*/
+  color: #000000;
+  font-size: 13px;
+  padding-top: 2px;
+  padding-left: 7px;
+  margin: 12px;
+  transition: all 0.5s ease-in-out;
+  overflow: hidden;
+}
+
+/*.icon1:hover{*/
+/*  width: 100px;*/
+/*}*/
+
+.addWidth{
+  width: 100px;
+}
+.boad {
+  background-color: #ffbb2e;
+  padding: 30px;
+  border-radius: 10% 30% 50% 60%;
+  text-align: center !important;
+}
+
+.boad span {
+  font-size: 80px;
+}
+
+.boad p {
+  font-size: 40px;
+}
+
+.boadfont {
+  font-size: 20px !important;
+  width: 90%;
+  padding-left: 50px;
+  color: #000000;
+  /*text-align: center!important;*/
+}
+
+#loginForm {
+  padding: 30px 40px;
+  border-radius: 200px 10px 150px 50px !important;
+  /* background-color: #ffad0d; */
+}
+
+.textEnd1 {
+  margin-right: 35px;
+  color: #ffad0d;
+  font-size: 20px;
+  float: right;
+  transition: all 0.5s ease-in-out;
+}
+
+.textEnd1:hover {
+  transform: rotate(0.2turn);
+}
+
+i {
+  cursor: pointer;
+}

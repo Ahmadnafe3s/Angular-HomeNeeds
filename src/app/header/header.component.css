@@ -1,0 +1,17 @@
+.me-auto{
+    translate: 890px;
+}
+
+@media only screen and (max-width: 700px) {
+    .me-auto{
+        translate: 0;
+    }
+}
+
+.navbar{
+background-color : #ffbb2e !important;
+}
+
+a{
+    cursor: pointer;
+}
