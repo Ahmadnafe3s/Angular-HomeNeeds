@@ -1,8 +1,25 @@
 <div class="row justify-content-center">
-    <div class="col-10">
+    <div class="col-10" id="recipeDetail">
         <p class="text-center"><span class="fs-5 text-dark fw-bold">R</span>ecipe <span class="fs-5 fw-bold text-dark">D</span>etails</p>
  <h4 class="text-dark fw-bold">{{this.RecipeDetail[index].RecipeName}}</h4>
  <br>
  <p>{{this.RecipeDetail[index].RecipeDetail}}</p>
     </div>
+</div>
+<br>
+<div class="row justify-content-center">
+  <div class="col-10">
+    <button class="btn btn-primary" (click)="toShopping(this.RecipeDetail[this.index].ingredients)">To Shopping</button>
+  </div>
+</div>
+<br>
+
+
+
+<div class="row justify-content-center">
+  <div class="col-md-10">
+    <div class="bg-warning px-4 py-2 my-2" *ngFor="let ingredient of this.RecipeDetail[this.index].ingredients" style=" border-radius: 5px 160px 50px 80px;">
+      <span class="text-dark">{{this.ingredient.Item}}</span> <span class="text-dark" style="float: right">{{ingredient.Amount}}</span>
+    </div>
+  </div>
 </div>

@@ -3,6 +3,6 @@
 #delete:hover {
   transition: all 0.3s ease-in-out;
   font-size: 23px;
-  color: red;
+  color: #ffad0d;
   background-color: #ffad0d;
 }

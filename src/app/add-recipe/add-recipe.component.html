@@ -18,6 +18,27 @@
     <input type="text" class="form-control" id="input2" placeholder="Enter Food Description" #recipeDescription>
   </div>
 
+
+
+
+  <div class="col-6 col-md-6 mt-2">
+    <label for="input3">Item</label>
+    <input type="text" class="form-control" id="input3" placeholder="Enter Item" #item>
+  </div>
+
+  <br>
+
+
+  <div class="col-3 col-md-2 mt-2">
+    <label for="input4">Amount</label>
+    <input type="text" class="form-control" id="input4" placeholder="Enter Amount" #amount>
+  </div>
+
+  <br>
+
+  <div class="col-3 col-md-2 mt-4 pt-2 text-center pb-1">
+    <a type="button" class="ingedient-btn btn btn-outline-warning mb-2" (click)="addIngredient()"><span style="font-size: 18px">+</span></a>
+  </div>
   <div class="col-md-10 mt-2">
     <label for="textarea">Enter Recipe Details</label>
     <textarea class="form-control" style="height: 40px"  placeholder="Enter Recipe Details" #recipeDetails id="textarea"></textarea>

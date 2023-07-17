@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {RecipeService} from "../Recipe.service";
 
 @Component({
@@ -6,7 +6,10 @@ import {RecipeService} from "../Recipe.service";
   templateUrl: './add-recipe.component.html',
   styleUrls: ['./add-recipe.component.css']
 })
-export class AddRecipeComponent  {
+export class AddRecipeComponent {
+
+  @ViewChild('item') Item: ElementRef;
+  @ViewChild('amount') Amount: ElementRef;
 
   formValidation: string = '';
 
@@ -17,7 +20,13 @@ export class AddRecipeComponent  {
   recipeObject = {
     RecipeName: '',
     Description: '',
-    RecipeDetail: ''
+    RecipeDetail: '',
+    ingredients: []
+  }
+
+  ingridieantObj = {
+    Item: '',
+    Amount: ''
   }
 
   upsertdata(event: {
@@ -67,5 +76,20 @@ export class AddRecipeComponent  {
     return true
   }
 
+
+  addIngredient() {
+    this.recipeObject.ingredients.push(this.ingridieantObj = {
+      Item: this.Item.nativeElement.value,
+      Amount: this.Amount.nativeElement.value
+    })
+
+    this.formValidation = `<div class="alert alert-success text-center d-flex align-items-center" role="alert">
+      <svg class="bi flex-shrink-0 me-2 " role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+      <div>
+        <strong>${this.Item.nativeElement.value}!</strong>  Added.
+      </div>
+    </div>`
+
+  }
 
 }

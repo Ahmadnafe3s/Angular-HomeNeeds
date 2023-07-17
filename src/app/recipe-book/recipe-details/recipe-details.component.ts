@@ -7,16 +7,20 @@ import {RecipeService} from "../../Recipe.service";
   styleUrls: ['./recipe-details.component.css']
 })
 export class RecipeDetailsComponent implements OnInit {
-
-// @Input() public index:number;
+  Ingredient : any;
   index:number = 0;
 RecipeDetail:any;
 constructor(private recipeService:RecipeService) {
   this.recipeService.onRecipeDetail.subscribe((index:number)=>{
-this.index = index;
+   this.index = index;
   })
+  // console.log(this.index)
 }
 ngOnInit(): void {
   this.RecipeDetail = JSON.parse(localStorage.getItem('recipes'))
+}
+
+toShopping(event){
+  this.recipeService.toShopping.emit(event);
 }
 }

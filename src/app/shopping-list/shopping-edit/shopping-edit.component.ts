@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {RecipeService} from "../../Recipe.service";
 
 @Component({
   selector: 'app-shopping-edit',
@@ -7,14 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingEditComponent implements OnInit {
 
-  ShoppingList: any;
+  ShoppingList: any = [];
   ShoppingObject = {
     Item: '',
     Amount: ''
   }
 
+  constructor(private recipeService: RecipeService) {
+
+  }
+
   insertData(event: { ItemData: HTMLInputElement, AmountData: HTMLInputElement }) {
-    localStorage.getItem('Shopping') === null ? this.ShoppingList = [] : this.ShoppingList = JSON.parse(localStorage.getItem('Shopping'));
+this.ShoppingList = JSON.parse(localStorage.getItem('Shopping'));
 
     // This Method Works with Local Storage
 
@@ -22,7 +27,7 @@ export class ShoppingEditComponent implements OnInit {
     // this.ShoppingObject.Amount = event.AmountData.value;
     // this.ShoppingList.push(this.ShoppingObject);
 
- // This Method can be Works both with Local Storage or without
+    // This Method can be Works both with Local Storage or without
 
     this.ShoppingList.push(this.ShoppingObject = {
       Item: event.ItemData.value,
@@ -35,11 +40,21 @@ export class ShoppingEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.ShoppingList = JSON.parse(localStorage.getItem('Shopping'));
+    if (localStorage.getItem('Shopping') !== null) {
+      this.recipeService.toShopping.subscribe((event: any) => {
+        event.forEach((elements) => {  //Pushing objects into array in separate index .
+          this.ShoppingList.push(elements);
+        })
+
+        localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
+      })
+
+    }
   }
 
-  deleteData(index:number){
+  deleteData(index: number) {
     this.ShoppingList = JSON.parse(localStorage.getItem('Shopping'));
-    this.ShoppingList.splice(index , 1)
+    this.ShoppingList.splice(index, 1)
     localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
   }
 
