@@ -1,55 +1,75 @@
-<!-- Alert Section -->
-<div style="text-align: center;" [innerHTML]="formValidation">
-  <h1>Hello</h1>
-</div>
-<br>
-<br>
-<br>
 <!-- Form Section -->
-<div class="container col-md-10">
-<form class="row mb-2 justify-content-center " >
-  <p class="text-center"><span class="text-warning fw-bold">Please fill below information</span></p>
-  <div class="col-md-4">
-    <label for="input1">Enter Food Name</label>
-    <input type="text" class="form-control" id="input1" placeholder="Enter Food Name" #recipeName>
-  </div>
-  <div class="col-md-6">
-    <label for="input2">Enter Food Description</label>
-    <input type="text" class="form-control" id="input2" placeholder="Enter Food Description" #recipeDescription>
-  </div>
+<br>
+<div class="container col-md-6 col-10 mt-5 form-body text-dark bg-img">
+  <form class="row mb-2 justify-content-center" (ngSubmit)="onSubmit()" [formGroup]="recipeForm">
+    <h1 *ngIf="!editMode" class="text-dark text-center">Add Recipe</h1>
+    <h1 *ngIf="editMode" class="text-dark text-center">Update Recipe</h1>
+    <br>
+    <br>
+    <br>
+    <div class="col-md-10">
+      <label>Name <span class="text-danger">*</span></label>
+      <input type="text" class="form-control" placeholder="Enter Food Name" formControlName="RecipeName">
+      <span class="mt-3 text-secondary"
+        *ngIf="recipeForm.get('RecipeName').invalid && recipeForm.get('RecipeName').touched">Enter valid Recipe
+        Name!</span>
+    </div>
+    <br>
+
+    <div class="col-md-10 mt-3">
+      <label>Description <span class="text-danger">*</span></label>
+      <input type="text" class="form-control" placeholder="Enter Food Description" formControlName="Description">
+      <span class="mt-3 text-secondary"
+        *ngIf="recipeForm.get('Description').invalid && recipeForm.get('Description').touched">This Field is
+        required!</span>
+    </div>
+
+    <div class="col-md-10 mt-3">
+      <label>Image Url <span class="text-danger">*</span></label>
+      <input type="text" class="form-control" placeholder="Enter Food Description" formControlName="Image">
+      <span class="mt-3 text-secondary"
+        *ngIf="recipeForm.get('Image').invalid && recipeForm.get('Image').touched">This Field is
+        required!</span>
+    </div>
+
+    <div class="col-md-10 mt-3">
+      <label for="textarea">Details <span class="text-danger">*</span></label>
+      <textarea class="form-control" style="height: 40px" placeholder="Enter Recipe Details" id="textarea"
+        formControlName="RecipeDetail"></textarea>
+      <span class="mt-3 text-secondary"
+        *ngIf="recipeForm.get('RecipeDetail').invalid && recipeForm.get('RecipeDetail').touched">This Field is
+        required!</span>
+    </div>
+
+    <div class="mt-3 col-10"><button type="button" class="btn btn-danger" (click)="addIngredient()">Add
+        Ingredient</button></div>
 
 
+    <div formArrayName="ingredients">
+      <div class="row justify-content-center" [formGroupName]="i" *ngFor="let controls of Controls; let i = index">
+        <div class="col-md-5">
+          <label for="input3">Item <span class="text-danger">*</span></label>
+          <input type="text" class="form-control col-md-6" id="input3" placeholder="Enter Item" formControlName="Item">
+        </div>
+        <div class="col-md-3">
+          <label for="input4">Amount <span class="text-danger">*</span></label>
+          <input type="number" class="form-control col-md-4" id="input4" placeholder="Enter Amount"
+            formControlName="Amount">
+        </div>
+       <div class="col-md-2 mt-4">
+        <button type="button" class="btn btn-danger" (click)="removeIng(i)">X</button>
+       </div>
+      </div>
+    </div>
+    <div>
+      <div>
+      </div>
+    </div>
 
-
-  <div class="col-6 col-md-6 mt-2">
-    <label for="input3">Item</label>
-    <input type="text" class="form-control" id="input3" placeholder="Enter Item" #item>
-  </div>
-
-  <br>
-
-
-  <div class="col-3 col-md-2 mt-2">
-    <label for="input4">Amount</label>
-    <input type="text" class="form-control" id="input4" placeholder="Enter Amount" #amount>
-  </div>
-
-  <br>
-
-  <div class="col-3 col-md-2 mt-4 pt-2 text-center pb-1">
-    <a type="button" class="ingedient-btn btn btn-outline-warning mb-2" (click)="addIngredient()"><span style="font-size: 18px">+</span></a>
-  </div>
-  <div class="col-md-10 mt-2">
-    <label for="textarea">Enter Recipe Details</label>
-    <textarea class="form-control" style="height: 40px"  placeholder="Enter Recipe Details" #recipeDetails id="textarea"></textarea>
-  </div>
-
-  <!-- Buttons inside parent Div -->
-  <div class="text-center mt-3">
-    <a class="btn btn-outline-success" type="button" (click)="upsertdata({recipeName , recipeDescription , recipeDetails})"> Add
-      Recipe</a>
-    <button type="reset" class="btn btn-outline-danger ms-2">Reset</button>
-  </div>
-</form>
+    <!-- Buttons inside parent Div -->
+    <div class="text-center mt-5">
+      <button type="submit" class="btn btn-success" [disabled]="recipeForm.invalid">{{editMode ? 'Update': 'Save  Data'}}</button>
+      <button type="button" class="btn btn-danger ms-2" (click)="onReset()">Reset</button>
+    </div>
+  </form>
 </div>
-

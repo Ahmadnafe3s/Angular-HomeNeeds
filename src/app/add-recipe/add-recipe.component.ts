@@ -1,95 +1,109 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {RecipeService} from "../Recipe.service";
+import { Component, OnInit } from '@angular/core';
+import { RecipeService } from "../Recipe.service";
+import { ActivatedRoute, Params } from "@angular/router";
+import { FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-recipe',
   templateUrl: './add-recipe.component.html',
   styleUrls: ['./add-recipe.component.css']
 })
-export class AddRecipeComponent {
+export class AddRecipeComponent implements OnInit {
+  recipeForm: FormGroup;
+  recipeList: any;
+  editMode: boolean = false; //By default it will be false
+  editIndex: number;
 
-  @ViewChild('item') Item: ElementRef;
-  @ViewChild('amount') Amount: ElementRef;
+  constructor(private recipeService: RecipeService, private routeParam: ActivatedRoute) {
+    this.recipeList = recipeService.getRecipes()
 
-  formValidation: string = '';
-
-  constructor(private recipeService: RecipeService) {
   }
 
-  recipeList: any = '';
-  recipeObject = {
-    RecipeName: '',
-    Description: '',
-    RecipeDetail: '',
-    ingredients: []
+  // subscribing queryParams
+
+  ngOnInit(): void {
+
+    this.routeParam.queryParams.subscribe((params: Params) => {
+      this.editIndex = +params.edit
+      this.editMode = params.editMode
+      this.initForm();
+    })
+    console.log(this.recipeForm);
   }
 
-  ingridieantObj = {
-    Item: '',
-    Amount: ''
-  }
 
-  upsertdata(event: {
-    recipeName: HTMLInputElement;
-    recipeDescription: HTMLInputElement;
-    recipeDetails: HTMLTextAreaElement
-  }): any {
-    if (this.validation(event)) {
-      localStorage.getItem('recipes') == null ? this.recipeList = [] : this.recipeList = JSON.parse(localStorage.getItem('recipes'))
-      this.recipeObject.RecipeName = event.recipeName.value;
-      this.recipeObject.Description = event.recipeDescription.value;
-      this.recipeObject.RecipeDetail = event.recipeDetails.value
-      this.recipeList.push(this.recipeObject)
-      localStorage.setItem('recipes', JSON.stringify(this.recipeList))
+  // FormGroup
+  private initForm() {
+    let RecipeName = '';
+    let Description = '';
+    let image = '';
+    let RecipeDetail = '';
+    let ingredients = new FormArray([]);
+
+    if (this.editMode) {
+      RecipeName = this.recipeList[this.editIndex].RecipeName;
+      Description = this.recipeList[this.editIndex].Description;
+      image = this.recipeList[this.editIndex].Image
+      RecipeDetail = this.recipeList[this.editIndex].RecipeDetail;
+      if (this.recipeList[this.editIndex].ingredients) {
+        for (let separateIng of this.recipeList[this.editIndex].ingredients) {
+          ingredients.push(
+            new FormGroup({
+              'Item': new FormControl(separateIng.Item, Validators.required),
+              'Amount': new FormControl(separateIng.Amount, Validators.required)
+            })
+          )
+        }
+      }
     }
+
+    this.recipeForm = new FormGroup({
+      'RecipeName': new FormControl(RecipeName, Validators.required),
+      'Description': new FormControl(Description, Validators.required),
+      'Image': new FormControl(image, Validators.required),
+      'RecipeDetail': new FormControl(RecipeDetail, Validators.required),
+      'ingredients': ingredients
+    });
   }
 
 
-  validation(event) {
-    if (event.recipeName.value == '') {
-      this.formValidation = `<div class="alert alert-danger text-end d-flex align-items-center" role="alert">
-      <svg class="bi flex-shrink-0 me-2 " role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-      <div>
-        <strong>Recipe Name!</strong> is missing.
-      </div>
-    </div>`
-      return false
-    } else if (event.recipeDescription.value == '') {
-      this.formValidation = `<div class="alert alert-danger text-center d-flex align-items-center" role="alert">
-      <svg class="bi flex-shrink-0 me-2 " role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-      <div>
-        <strong>Description!</strong> is missing.
-      </div>
-    </div>`
-      return false
-    } else if (event.recipeDetails.value == '') {
-      this.formValidation = `<div class="alert alert-danger text-center d-flex align-items-center" role="alert">
-      <svg class="bi flex-shrink-0 me-2 " role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-      <div>
-        <strong>Recipe Detail!</strong> is missing.
-      </div>
-    </div>`
-      return false
-    } else {
-      this.formValidation = '';
+
+  onSubmit() {
+    if (this.editMode) {
+      this.recipeService.onUpdate(this.editIndex, this.recipeForm.value)
     }
-    return true
+    else {
+      this.recipeService.upsertdata(this.recipeForm.value)
+    }
+
+    this.editMode = false;
+    this.recipeForm.reset();
+    (<FormArray>this.recipeForm.get('ingredients')).clear(); // To delete all elemets inside the array..
   }
 
 
   addIngredient() {
-    this.recipeObject.ingredients.push(this.ingridieantObj = {
-      Item: this.Item.nativeElement.value,
-      Amount: this.Amount.nativeElement.value
-    })
+    const Control = new FormGroup({
+      'Item': new FormControl(null, Validators.required),
+      'Amount': new FormControl(null, Validators.required)
+    });
 
-    this.formValidation = `<div class="alert alert-success text-center d-flex align-items-center" role="alert">
-      <svg class="bi flex-shrink-0 me-2 " role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-      <div>
-        <strong>${this.Item.nativeElement.value}!</strong>  Added.
-      </div>
-    </div>`
-
+    (<FormArray>this.recipeForm.get('ingredients')).push(Control);
   }
+
+  onReset() {
+    this.recipeForm.reset()
+    this.editMode = false;
+    (<FormArray>this.recipeForm.get('ingredients')).clear();
+  }
+
+  removeIng(index: number) {
+    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index) //works as splice method
+  }
+
+  get Controls() {
+    return (this.recipeForm.get('ingredients') as FormArray).controls
+  }
+
 
 }

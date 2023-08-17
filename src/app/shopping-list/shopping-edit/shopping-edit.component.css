@@ -1,8 +1,24 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
-#delete:hover {
+.clip1:hover {
   transition: all 0.3s ease-in-out;
-  font-size: 23px;
+  font-size: 20px;
   color: #ffad0d;
-  background-color: #ffad0d;
+}
+
+.clip2:hover {
+  transition: all 0.3s ease-in-out;
+  font-size: 20px;
+  color: #ff0d0d;
+}
+
+input.ng-invalid.ng-touched{
+  border: 2px solid red;
+  box-shadow: none;
+}
+
+.inputStyle{
+  border: 2px solid green;
+  box-shadow: none;
+
 }

@@ -1,10 +1,8 @@
-<app-header (Display)="onSelect($event)"> </app-header>
+<app-header> </app-header>
 <div class=" container-fluid">
-  <div class="row ">
+  <div class="row">
     <div class="col-md-12">
-      <app-recipe-book *ngIf="featureComponent === 'recipe'"></app-recipe-book>
-      <app-shopping-list *ngIf="featureComponent === 'shopping'"></app-shopping-list>
-      <app-add-recipe *ngIf="featureComponent === 'moreRecipes'"></app-add-recipe>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

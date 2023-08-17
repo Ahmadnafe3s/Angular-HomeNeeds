@@ -1,42 +1,36 @@
-<form>
-    <div class="row justify-content-center my-4 ">
-        <div class="col-md-5">
-            <label for="input1">Enter Item</label>
-            <input type="text" class="form-control" id="input1" placeholder="Enter Item" #ItemData>
-        </div>
-        <div class="col-md-3">
-            <label for="input2">Enter Amount</label>
-            <input type="number" class="form-control" id="input2" placeholder="Enter Amount" #AmountData>
-        </div>
-        <div class="text-center my-4">
-            <button class="btn btn-outline-warning" (click)="insertData({ItemData ,AmountData})">Add</button>
-            <button type="reset" class="btn btn-outline-danger ms-3">Reset</button>
-        </div>
+<div class="text-center mt-4">
+  <H1>Shopping List</H1>
+</div>
+<form (ngSubmit)="insertData(f)" #f="ngForm">
+  <div class="row justify-content-center my-4 ">
+    <div class="col-md-5">
+      <label for="input1">Enter Item</label>
+      <input type="text" class="form-control" placeholder="Enter Item" ngModel name="Item" #name="ngModel" inputStyle
+        required>
+      <span class="text-secondary" *ngIf="name.invalid && name.touched">Enter valid item!</span>
+
     </div>
+    <div class="col-md-3">
+      <label>Enter Amount</label>
+      <input type="number" class="form-control" placeholder="Enter Amount" ngModel name="Amount" #Amount="ngModel"
+        pattern="^[1-9]+[0-9]*$" inputStyle required>
+      <span class="text-secondary" *ngIf="Amount.invalid && Amount.touched">Enter Valid Amount!</span>
+    </div>
+    <div class="text-center my-4">
+      <button class="btn btn-warning" [disabled]="f.invalid">{{editMode ? 'Update' : 'Add Ingredient' }}</button>
+      <button type="button" class="btn btn-danger ms-3" (click)="reset()">Reset</button>
+    </div>
+  </div>
 </form>
 
 
+<!-- display data -->
 
-<div class="row justify-content-center">
-    <div class="col-md-8" >
-        <table class="table table-hover table-dark table-bordered border-warning text-center">
-            <thead>
-              <tr>
-<!--                <th scope="col">SR. No.</th>-->
-                <th scope="col">Item</th>
-                <th scope="col">Price</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="mb-2" *ngFor="let shoppingData of ShoppingList; let i = index">
-<!--                <th scope="row">{{this.i + 1}}</th>-->
-                <td>{{this.shoppingData.Item}}</td>
-                <td>{{this.shoppingData.Amount + ' Rs.'}}</td>
-                <td id="delete"><i class="bi bi-cart-x-fill" (click)="deleteData(i)" style="cursor: pointer"></i></td>
-              </tr>
-            </tbody>
-          </table>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-8 alert" *ngFor="let shoppingData of ShoppingList; let i = index" [ngClass]="getClass(this.shoppingData.Amount)">
+      <strong>{{this.shoppingData.Item}}</strong> <span class="mx-5">|</span> <span>{{this.shoppingData.Amount}}</span> <span style="float: right;"><i class="bi bi-pencil-fill me-3 clip1" (click)="editIngredient(i)"></i><i class="bi bi-cart-x-fill clip2"
+        style="cursor: pointer" (click)="deleteData(i)"></i></span>
+    </div>
+    </div>
 </div>
-
-

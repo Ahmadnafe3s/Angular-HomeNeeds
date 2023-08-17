@@ -1,4 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { RecipeService } from '../Recipe.service';
+import { Recipe } from '../recipe-model';
 
 @Component({
   selector: 'app-header',
@@ -6,13 +8,13 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  @Output() Display = new EventEmitter<string>();
 
-  onSelect(feature:string){
-    this.Display.emit(
-     feature
+  constructor(private recipeService: RecipeService) { }
+  FetchData() {
+    this.recipeService.FetchData().subscribe(
+      (recipes:Recipe[]) => {
+        this.recipeService.recipeList = recipes;
+      }
     )
   }
-  
- 
 }

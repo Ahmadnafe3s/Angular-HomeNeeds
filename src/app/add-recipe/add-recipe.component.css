@@ -1,3 +1,33 @@
-.ingedient-btn{
+.form-body{
+    padding: 50px 20px ;
+    background-color: white;
+    background-image: url("food.png");
+    border-radius: 30px;
+    margin-bottom: 50px;
+    background-repeat: no-repeat;
+    background-position: bottom-right;
 
+    box-sizing:inherit;
+    /* box-shadow: 0px 0px 6px 6px rgba(255, 255, 255, 0.191); */
+}
+
+input{
+    border: 2px solid black !important;
+    box-shadow: none !important;
+}
+
+input:focus{
+    border: 2px solid rgb(0, 121, 36) !important; 
+}
+textarea{
+    border: 2px solid black !important;
+    box-shadow: none !important;
+}
+
+input.ng-invalid.ng-touched{
+    border: 2px solid rgb(255, 0, 0) !important;
+}
+
+textarea.ng-invalid.ng-touched{
+    border: 2px solid rgb(255, 0, 0) !important;
 }

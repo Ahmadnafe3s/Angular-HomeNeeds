@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {RecipeService} from "../../Recipe.service";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { RecipeService } from "../../Recipe.service";
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -7,36 +8,27 @@ import {RecipeService} from "../../Recipe.service";
   styleUrls: ['./shopping-edit.component.css']
 })
 export class ShoppingEditComponent implements OnInit {
-
+  @ViewChild('f') ingredientForm: NgForm;
   ShoppingList: any = [];
-  ShoppingObject = {
-    Item: '',
-    Amount: ''
-  }
-
+  editMode: boolean = false;
+  editIngredientIndex: number;
   constructor(private recipeService: RecipeService) {
 
   }
 
-  insertData(event: { ItemData: HTMLInputElement, AmountData: HTMLInputElement }) {
-this.ShoppingList = JSON.parse(localStorage.getItem('Shopping'));
 
-    // This Method Works with Local Storage
+  insertData(form: NgForm) {
+    if (this.editMode) {
+      this.ShoppingList[this.editIngredientIndex] = form.value
+      localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
 
-    // this.ShoppingObject.Item = event.ItemData.value;
-    // this.ShoppingObject.Amount = event.AmountData.value;
-    // this.ShoppingList.push(this.ShoppingObject);
+    } else {
 
-    // This Method can be Works both with Local Storage or without
-
-    this.ShoppingList.push(this.ShoppingObject = {
-      Item: event.ItemData.value,
-      Amount: event.AmountData.value
-    });
-
-    localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
-
+      this.ShoppingList.push(form.value);
+      localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
+    }
   }
+
 
   ngOnInit(): void {
     this.ShoppingList = JSON.parse(localStorage.getItem('Shopping'));
@@ -44,12 +36,12 @@ this.ShoppingList = JSON.parse(localStorage.getItem('Shopping'));
       this.recipeService.toShopping.subscribe((event: any) => {
         event.forEach((elements) => {  //Pushing objects into array in separate index .
           this.ShoppingList.push(elements);
-        })
-
+        })        
         localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
       })
-
+    
     }
+
   }
 
   deleteData(index: number) {
@@ -58,4 +50,25 @@ this.ShoppingList = JSON.parse(localStorage.getItem('Shopping'));
     localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
   }
 
+  editIngredient(index: number) {
+    this.editMode = true;
+    this.editIngredientIndex = index;
+    this.ingredientForm.setValue({
+      Item: this.ShoppingList[index].Item,
+      Amount: this.ShoppingList[index].Amount
+    })
+  }
+
+  reset(){
+    this.ingredientForm.reset()
+    this.editMode = false;
+  }
+
+  getClass(amount){
+    return{
+      'alert-success' : amount > 0 && amount < 6,
+      'alert-warning' : amount > 5 && amount < 11,
+      'alert-danger' : amount > 10,
+    }
+  }
 }

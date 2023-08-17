@@ -64,24 +64,15 @@
   /*text-align: center!important;*/
 }
 
-#loginForm {
-  padding: 30px 40px;
-  border-radius: 200px 10px 150px 50px !important;
-  /* background-color: #ffad0d; */
-}
-
-.textEnd1 {
-  margin-right: 35px;
-  color: #ffad0d;
-  font-size: 20px;
-  float: right;
-  transition: all 0.5s ease-in-out;
-}
-
-.textEnd1:hover {
-  transform: rotate(0.2turn);
-}
-
 i {
   cursor: pointer;
+}
+
+.filter{
+  display: inline-block;
+  padding: 12px 12px;
+  border-radius: 30px;
+  width: 60px;
+  font-size: 24px;
+  text-align: center;
 }

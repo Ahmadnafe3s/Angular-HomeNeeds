@@ -1,31 +1,43 @@
-import {Component} from '@angular/core';
-import {RecipeService} from "../../Recipe.service";
+import { Component, OnInit } from '@angular/core';
+import { RecipeService } from "../../Recipe.service";
+import { subscribeToArray } from "rxjs/internal/util/subscribeToArray";
+import { Route, Router } from '@angular/router';
+import { Recipe } from 'src/app/recipe-model';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css']
 })
-export class RecipeListComponent {
-
-  recipeList: any = '';
-  isEdit:boolean = true;
-
-  constructor(private recipeService: RecipeService) { //Services
-    this.recipeList = JSON.parse(localStorage.getItem('recipes'))
+export class RecipeListComponent implements OnInit{
+  isFetching:boolean = true;
+  recipeList:Recipe[] = [];
+  PlaceHolders = [1,2,3,4,5,6]
+  constructor(private recipeService: RecipeService, private router: Router) { 
   }
 
   deleterecipe(index: any): void {
-    this.recipeList = JSON.parse(localStorage.getItem('recipes'))
-    this.recipeList.splice(index, 1)
-    localStorage.setItem('recipes', JSON.stringify(this.recipeList))
+    if (confirm('Do you really want to delete!')) {
+      this.recipeList.splice(index, 1)
+      this.recipeService.onDelete(this.recipeList);
+    }
   }
 
-
-
-  onRecipedetail(index: number) {
-    this.recipeService.onRecipeDetail.emit(index)
+  onEdit(index: number) {
+    this.router.navigate(['/new'], { queryParams: { edit: index, editMode: true } })
   }
 
+  ngOnInit(): void {
+    this.isFetching = true;
+    this.recipeService.FetchData()
+    .subscribe(
+      (recipeData:Recipe[]) =>{
+        this.isFetching = false
+        this.recipeList = recipeData;
+      }
+    )
+    console.log(this.recipeList.length);
+  }
 }
 
