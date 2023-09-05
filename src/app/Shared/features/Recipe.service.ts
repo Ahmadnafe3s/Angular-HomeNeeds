@@ -1,7 +1,8 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient} from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Subject, tap  } from "rxjs";
-import { Recipe } from "./recipe-model";
+import { BehaviorSubject, Subject,tap } from "rxjs";
+import { Recipe } from "../../recipe-book/recipe-model";
+import { AuthService } from "../../auth/auth.service";
 
 @Injectable()
 
@@ -10,7 +11,9 @@ export class RecipeService {
   recipeList: Recipe[] = [];
   RecipeLink: string = 'https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes.json'
 
-  constructor(private http: HttpClient) {}
+  Index = new BehaviorSubject<null|number>(null)
+
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
 
   upsertdata(formValue) {
@@ -35,7 +38,7 @@ export class RecipeService {
     return this.recipeList.slice()
   }
 
-  onDelete(deletdData:Recipe[]){
+  onDelete(deletdData: Recipe[]) {
     this.http.put(this.RecipeLink, deletdData).subscribe(
       res => {
         console.log(res);
@@ -44,14 +47,12 @@ export class RecipeService {
   }
 
   FetchData() {
-   return this.http.get(this.RecipeLink).pipe(
-      tap(
-        (recipes:Recipe[]) =>{
-          this.recipeList = recipes
-          return recipes;
-        }
-      )
-    )
+    return this.http.get(this.RecipeLink).pipe(tap(
+      (recipes: Recipe[]) => {
+        this.recipeList = recipes
+        return recipes;
+      }
+    ))
   }
 }
 

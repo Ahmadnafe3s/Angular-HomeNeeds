@@ -1,24 +1,15 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
 .clip1:hover {
-  transition: all 0.3s ease-in-out;
-  font-size: 20px;
   color: #ffad0d;
 }
 
 .clip2:hover {
-  transition: all 0.3s ease-in-out;
-  font-size: 20px;
   color: #ff0d0d;
 }
 
-input.ng-invalid.ng-touched{
-  border: 2px solid red;
-  box-shadow: none;
-}
 
-.inputStyle{
-  border: 2px solid green;
-  box-shadow: none;
-
+.i-hover:hover {
+  transform: scale(1.2);
+  transition: 0.3s ease-in-out;
 }

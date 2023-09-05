@@ -1,5 +1,5 @@
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
-import { Recipe } from "./recipe-model";
+import { Recipe } from "../../recipe-book/recipe-model";
 import { Injectable } from "@angular/core";
 import { RecipeService } from "./Recipe.service";
 @Injectable({

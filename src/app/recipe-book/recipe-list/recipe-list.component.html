@@ -3,13 +3,11 @@
   <p class="boadfont">Explore the foodie in you.</p>
 </div>
 <br>
-<div class="text-center" *ngIf="recipeList.length < 1 && !isFetching">
-  <h3>Oops Recipes are not Avaliable !</h3>
+
+<div class="text-center" *ngIf="ErrorMsg">
+  <h3>{{ErrorMsg}}</h3>
 </div>
-<!-- <div class="container-fluid">
-    <span class="filter bg-warning"><i class="bi bi-funnel-fill"></i></span> 
-    <input type="text" class="form-control col-md-6">
-</div> -->
+
 
 <div class="row justify-content-evenly mt-3" *ngIf="isFetching">
   <div class="card col-md-4 mx-5 my-5 col-10 border-warning bg-dark" aria-hidden="true"

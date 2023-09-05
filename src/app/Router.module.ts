@@ -1,25 +1,17 @@
 import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { RecipeBookComponent } from "./recipe-book/recipe-book.component";
-import { ShoppingListComponent } from "./shopping-list/shopping-list.component";
-import { RecipeDetailsComponent } from "./recipe-book/recipe-details/recipe-details.component";
-import { AddRecipeComponent } from "./add-recipe/add-recipe.component";
-import { SelectRecipeComponent } from "./recipe-book/select-recipe/select-recipe.component";
-import { ResolverService } from "./resolver.service";
+import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
+
 
 const AppRoutes: Routes = [
   { path: '', redirectTo: '/recipe', pathMatch: 'full' },
-  {
-    path: 'recipe', component: RecipeBookComponent,  children: [
-      { path: '', component: SelectRecipeComponent },
-      { path: ':id/:name', component: RecipeDetailsComponent }
-    ]
-  },
-  { path: 'shopping', component: ShoppingListComponent },
-  { path: 'new', component: AddRecipeComponent },
+  { path: 'recipe', loadChildren: () => import('./recipe-book/recipe.module').then(x => x.RecipeModule) }, // moern syntax
+  { path: 'shopping', loadChildren: () => import('./shopping-list/shopping.module').then(x => x.ShoppingModule) },
+  { path: 'auth', loadChildren: () => import('./auth/Auth.module').then(x => x.AuthModule) },
+  { path: 'new', loadChildren: () => import('./add-recipe/AddRecipe.module').then(x => x.AddRecipeModule) }
 ]
+
 @NgModule({
-  imports: [RouterModule.forRoot(AppRoutes)],
+  imports: [RouterModule.forRoot(AppRoutes, { preloadingStrategy: PreloadAllModules /*it gets rid for delay*/ })],
   exports: [RouterModule]
 })
 export class RouterModules { }

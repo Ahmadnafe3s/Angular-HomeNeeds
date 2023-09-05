@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { RecipeService } from "../../Recipe.service";
-import { NgForm } from '@angular/forms';
+import { Component,  OnInit} from '@angular/core';
+import { RecipeService } from "../../Shared/features/Recipe.service";
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -8,27 +8,12 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./shopping-edit.component.css']
 })
 export class ShoppingEditComponent implements OnInit {
-  @ViewChild('f') ingredientForm: NgForm;
   ShoppingList: any = [];
-  editMode: boolean = false;
-  editIngredientIndex: number;
-  constructor(private recipeService: RecipeService) {
 
-  }
-
-
-  insertData(form: NgForm) {
-    if (this.editMode) {
-      this.ShoppingList[this.editIngredientIndex] = form.value
-      localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
-
-    } else {
-
-      this.ShoppingList.push(form.value);
-      localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
-    }
-  }
-
+  constructor(private recipeService: RecipeService,
+    private route: Router,
+    private active: ActivatedRoute
+  ){}
 
   ngOnInit(): void {
     this.ShoppingList = JSON.parse(localStorage.getItem('Shopping'));
@@ -36,13 +21,12 @@ export class ShoppingEditComponent implements OnInit {
       this.recipeService.toShopping.subscribe((event: any) => {
         event.forEach((elements) => {  //Pushing objects into array in separate index .
           this.ShoppingList.push(elements);
-        })        
+        })
         localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
       })
-    
     }
-
   }
+
 
   deleteData(index: number) {
     this.ShoppingList = JSON.parse(localStorage.getItem('Shopping'));
@@ -50,25 +34,16 @@ export class ShoppingEditComponent implements OnInit {
     localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
   }
 
+
   editIngredient(index: number) {
-    this.editMode = true;
-    this.editIngredientIndex = index;
-    this.ingredientForm.setValue({
-      Item: this.ShoppingList[index].Item,
-      Amount: this.ShoppingList[index].Amount
-    })
+    this.recipeService.Index.next(index)
+    this.route.navigate(['new'], { relativeTo: this.active})
   }
 
-  reset(){
-    this.ingredientForm.reset()
-    this.editMode = false;
+
+  onAddmore(){
+    this.recipeService.Index.next(null)
+    this.route.navigate(['new'], { relativeTo: this.active})
   }
 
-  getClass(amount){
-    return{
-      'alert-success' : amount > 0 && amount < 6,
-      'alert-warning' : amount > 5 && amount < 11,
-      'alert-danger' : amount > 10,
-    }
-  }
 }

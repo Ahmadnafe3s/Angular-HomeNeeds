@@ -1,0 +1,26 @@
+input{
+    border: 1px solid rgba(255, 255, 255, 0.261) !important;
+    box-shadow: none !important;
+    background-color: rgba(0, 0, 0, 0.317) !important;
+    color: rgb(255, 255, 255) !important;
+}
+
+input:focus{
+    border: 2px solid rgb(0, 225, 255) !important;
+}
+
+input::placeholder{
+    color: rgb(255, 255, 255);
+}
+
+input.ng-invalid.ng-touched{
+    border: 2px solid rgb(255, 0, 0) !important;
+}
+
+.f-bg{
+    border: 1px solid #ffffff4f;
+    padding: 20px 20px;
+    border-radius: 15px;
+    background-color: #ffffff12;
+    margin: 24vh 0;
+  }

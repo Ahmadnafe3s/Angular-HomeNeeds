@@ -1,0 +1,36 @@
+<div class="text-center" *ngIf="isLoading">
+    <app-loading-spinner ></app-loading-spinner>
+</div>
+
+<!-- Alert Model -->
+<app-alert [message]="responseMsg" *ngIf="responseMsg" (close)="onHandleError()"></app-alert>
+
+<img src="/images/home.png">
+
+<div class="row justify-content-center mt-5">
+    <div class="col-lg-3 col-10 f-bg">
+        
+       <h3 class="text-center">{{isLogging ? 'Log in' :
+        'Sign Up'}}</h3>
+        <form [formGroup]="authForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading"> <!--Always FormGroup-->
+            <div>
+                <label for="email">Email</label>
+                <input type="text" id="email" class="form-control" formControlName="email" placeholder="email">
+            </div>
+            <br>
+            <div>
+                <label for="Password">Password</label>
+                <input type="password" id="Password" class="form-control" formControlName="password"
+                    placeholder="password">
+            </div>
+            <br>
+            <div class="text-center">
+                <button type="submit" class="btn btn-success" [disabled]="authForm.invalid">{{isLogging ? 'Log in' :
+                    'Sign Up'}}</button>
+                |
+                <button type="button" class="btn btn-danger" (click)="loginMode()">Switch to {{isLogging ?
+                    'Sign Up' : 'Log in'}} </button>
+            </div>
+        </form>
+    </div>
+</div>

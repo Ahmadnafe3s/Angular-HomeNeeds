@@ -1,16 +1,26 @@
-.me-auto{
+/* .me-auto{
     translate: 980px;
-}
+} */
 
 @media only screen and (max-width: 700px) {
-    .me-auto{
+    /* .me-auto{
         translate: 0;
-    }
+    } */
 
     .navActive{
         padding : 8px 10px;
        width: 140px;
     }
+}
+
+input{
+    /* border: 1px solid black !important; */
+    box-shadow: none !important;
+}
+
+input:focus{
+    border: 2px solid rgb(0, 0, 0) !important;
+    
 }
 
 .navbar{
@@ -25,4 +35,10 @@ a{
     background-color: black;
   border-radius: 15px;
   color: white !important;
+}
+
+nav{
+    position: sticky !important;
+    top: 0%;
+    z-index: 2;
 }

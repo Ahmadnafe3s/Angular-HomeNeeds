@@ -7,3 +7,7 @@
   border: 2px solid green !important;
   box-shadow: none !important;
 } */
+
+.dark{
+  background-color: black;
+}

@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class="row justify-content-center">
+      <form class="col-md-3 col-10 f-bg" (ngSubmit)="insertData()" [formGroup]="ShoppingForm">
+        <h3 class="text-center">{{editMode ? 'Update' : 'Ingredients'}}</h3>
+        <label for="input1">Enter Item</label>
+        <input type="text" class="form-control" placeholder="Enter Item" formControlName="Item">
+        <span class="text-secondary" *ngIf="ShoppingForm.get('Item').invalid && ShoppingForm.get('Item').touched">Enter valid item!</span>
+        <br>
+        <label>Enter Amount</label>
+        <input type="number" class="form-control" placeholder="Enter Amount" formControlName="Amount" pattern="^[1-9]+[0-9]*$">
+        <span class="text-secondary" *ngIf="ShoppingForm.get('Amount').invalid && ShoppingForm.get('Amount').touched">Enter Valid Amount!</span>
+  
+        <div class="text-center my-4">
+          <button class="btn btn-warning" [disabled]="ShoppingForm.invalid">{{editMode ? 'Update' : 'Add Ingredient' }}</button>
+          <button type="button" class="btn btn-danger ms-3" (click)="reset()">Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>

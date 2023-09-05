@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RecipeService } from "../Recipe.service";
+import { RecipeService } from "../Shared/features/Recipe.service";
 import { ActivatedRoute, Params } from "@angular/router";
 import { FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
@@ -16,7 +16,6 @@ export class AddRecipeComponent implements OnInit {
 
   constructor(private recipeService: RecipeService, private routeParam: ActivatedRoute) {
     this.recipeList = recipeService.getRecipes()
-
   }
 
   // subscribing queryParams
@@ -28,7 +27,7 @@ export class AddRecipeComponent implements OnInit {
       this.editMode = params.editMode
       this.initForm();
     })
-    console.log(this.recipeForm);
+
   }
 
 

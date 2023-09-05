@@ -1,0 +1,28 @@
+.f-bg{
+    border: 1px solid #ffffff4f;
+    padding: 20px 20px;
+    border-radius: 15px;
+    background-color: #ffffff12;
+    margin: 24vh 0;
+  }
+
+  input {
+    width: 100%;
+    height: 35px;
+    box-shadow: none !important;
+    border: 1px solid #ffffff4f !important;
+    background-color: black !important;
+    color: white !important;
+  }
+  
+  input:focus {
+    border: 2px solid rgb(0, 251, 255) !important;
+  }
+  
+  input::placeholder{
+    color: white !important;
+  }
+
+  input.ng-invalid.ng-touched {
+    border: 2px solid red !important;
+  }

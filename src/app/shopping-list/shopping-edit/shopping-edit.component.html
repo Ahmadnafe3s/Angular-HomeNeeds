@@ -1,36 +1,24 @@
-<div class="text-center mt-4">
-  <H1>Shopping List</H1>
-</div>
-<form (ngSubmit)="insertData(f)" #f="ngForm">
-  <div class="row justify-content-center my-4 ">
-    <div class="col-md-5">
-      <label for="input1">Enter Item</label>
-      <input type="text" class="form-control" placeholder="Enter Item" ngModel name="Item" #name="ngModel" inputStyle
-        required>
-      <span class="text-secondary" *ngIf="name.invalid && name.touched">Enter valid item!</span>
-
-    </div>
-    <div class="col-md-3">
-      <label>Enter Amount</label>
-      <input type="number" class="form-control" placeholder="Enter Amount" ngModel name="Amount" #Amount="ngModel"
-        pattern="^[1-9]+[0-9]*$" inputStyle required>
-      <span class="text-secondary" *ngIf="Amount.invalid && Amount.touched">Enter Valid Amount!</span>
-    </div>
-    <div class="text-center my-4">
-      <button class="btn btn-warning" [disabled]="f.invalid">{{editMode ? 'Update' : 'Add Ingredient' }}</button>
-      <button type="button" class="btn btn-danger ms-3" (click)="reset()">Reset</button>
-    </div>
-  </div>
-</form>
-
 
 <!-- display data -->
-
+<br>
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-md-8 alert" *ngFor="let shoppingData of ShoppingList; let i = index" [ngClass]="getClass(this.shoppingData.Amount)">
-      <strong>{{this.shoppingData.Item}}</strong> <span class="mx-5">|</span> <span>{{this.shoppingData.Amount}}</span> <span style="float: right;"><i class="bi bi-pencil-fill me-3 clip1" (click)="editIngredient(i)"></i><i class="bi bi-cart-x-fill clip2"
-        style="cursor: pointer" (click)="deleteData(i)"></i></span>
+    <div class="text-center text-white mt-4">
+      <H1>Shopping List</H1>
     </div>
+    <div class="col-md-8">
+      <button type="button" class="btn btn-success" (click)="onAddmore()">Add More</button>
     </div>
+    <br>
+    <div class="d-flex justify-content-between text-dark col-md-8 bg-light px-5 py-3 my-3"
+      *ngFor="let shoppingData of ShoppingList; let i = index">
+      <div><strong>{{this.shoppingData.Item}}</strong></div>
+      <div>{{this.shoppingData.Amount}}</div>
+      <div class="d-flex">
+        <div class="i-hover me-1"><i class="bi bi-pencil-fill me-3 clip1" (click)="editIngredient(i)"></i></div>
+        <div class="i-hover"> <i class="bi bi-cart-x-fill clip2" style="cursor: pointer" (click)="deleteData(i)"></i>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
