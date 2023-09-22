@@ -11,7 +11,7 @@ export class RecipeService {
   recipeList: Recipe[] = [];
   RecipeLink: string = 'https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes.json'
 
-  Index = new BehaviorSubject<null|number>(null)
+  Index = new BehaviorSubject<null|string>(null)
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -54,5 +54,6 @@ export class RecipeService {
       }
     ))
   }
+
 }
 

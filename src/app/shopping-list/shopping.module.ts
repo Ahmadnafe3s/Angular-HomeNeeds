@@ -7,6 +7,7 @@ import { ShoppingRouterModule } from "./shopping-router.module";
 import { SharedModule } from "../Shared/shared.module";
 import { UpsertComponent } from "./upsert/upsert.component";
 
+
 @NgModule({
     declarations: [
         ShoppingListComponent,
@@ -17,7 +18,7 @@ import { UpsertComponent } from "./upsert/upsert.component";
         ReactiveFormsModule,
         RouterModule,
         ShoppingRouterModule,
-        SharedModule
+        SharedModule,
     ]
 })
 export class ShoppingModule { }

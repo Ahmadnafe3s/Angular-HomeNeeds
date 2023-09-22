@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { RecipeService } from 'src/app/Shared/features/Recipe.service';
 
@@ -13,18 +13,20 @@ export class UpsertComponent implements OnInit {
     ShoppingList: any = [];
     editMode: boolean = false;
     Index: number;
-    ShoppingForm: FormGroup
-
-    constructor(private params: ActivatedRoute , private recipeService : RecipeService) { }
+    ShoppingForm: FormGroup;
+    msg: string | null = null;
+    constructor(private recipeService: RecipeService, private router: Router) { }
 
     ngOnInit(): void {
+        if (localStorage.getItem('Shopping') == null) {
+            localStorage.setItem('Shopping', JSON.stringify([]));
+        }
         this.ShoppingList = JSON.parse(localStorage.getItem('Shopping'));
-
-        this.recipeService.Index.pipe(take(1)).subscribe(index=>{
-            this.Index = index
+        this.recipeService.Index.pipe(take(1)).subscribe(index => {
+            this.Index = +index
             this.editMode = !!index
         })
-        
+
         this.ShopForm();
     }
 
@@ -33,15 +35,26 @@ export class UpsertComponent implements OnInit {
         if (this.editMode) {
             this.ShoppingList[this.Index] = this.ShoppingForm.value
             localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
+            this.editMode = false;
+            this.msg = "Your data has been Updated! Do you want to Navigate"
 
         } else {
-
             this.ShoppingList.push(this.ShoppingForm.value);
             localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
+            this.msg = "Your data has been Saved! Do you want to Navigate"
         }
+
+        this.ShoppingForm.reset()
     }
 
+    onOk() {
+        this.router.navigate(['shopping'])
+    }
 
+    onClose() {
+        this.msg = null;
+    }
+    
     private ShopForm() {
         let Item = ''
         let Amount = ''
@@ -62,6 +75,4 @@ export class UpsertComponent implements OnInit {
         this.ShoppingForm.reset()
         this.editMode = false;
     }
-
-
 }

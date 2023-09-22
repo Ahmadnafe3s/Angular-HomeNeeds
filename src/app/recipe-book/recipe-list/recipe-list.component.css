@@ -76,3 +76,10 @@ i {
   font-size: 24px;
   text-align: center;
 }
+
+.detailed{
+  background-color: black;
+  padding: 6px 10px;
+  color: white !important;
+  border-radius: 10px;
+}

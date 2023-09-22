@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   obser: Subscription;
-
+  logMsg: string | null = null;
   FetchData() {
     this.recipeService.FetchData().subscribe(
       (recipes: Recipe[]) => {
@@ -40,7 +40,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
 
-  onLogout(){
+  onLogout() {
+    this.logMsg = 'Do you really want to logout!'
+  }
+
+  onClose() {
+    this.logMsg = null;
+  }
+
+  onOk() {
+    this.logMsg = null;
     this.authService.onLogout()
   }
 }

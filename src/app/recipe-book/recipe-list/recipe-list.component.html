@@ -1,5 +1,5 @@
 <div class="boad">
-  <p><span class="text-danger">R</span>ecipe <span class="text-danger">B</span>ook</p>
+  <p class="animate__fadeInUp"><span class="text-danger">R</span>ecipe <span class="text-danger">B</span>ook</p>
   <p class="boadfont">Explore the foodie in you.</p>
 </div>
 <br>
@@ -10,7 +10,7 @@
 
 
 <div class="row justify-content-evenly mt-3" *ngIf="isFetching">
-  <div class="card col-md-4 mx-5 my-5 col-10 border-warning bg-dark" aria-hidden="true"
+  <div class="card col-md-4 mx-5 my-5 col-8 border-warning bg-dark" aria-hidden="true"
     *ngFor="let placeholder of PlaceHolders">
     <div class="card-body">
       <h5 class="card-title placeholder-glow">
@@ -31,9 +31,9 @@
 <!-- Display section -->
 <div class="row justify-content-evenly" *ngIf="!isFetching">
   <div class="card border-warning bg-dark mx-5 my-3 text-white" style="max-width: 18rem;"
-    *ngFor="let recipe of recipeList; let index = index">
+    *ngFor="let recipe of recipeList; let index = index" [@fade] data-aos="zoom-in-down">
     <div style="cursor: pointer;" class="card-header text-dark bg-warning" [routerLink]="[index , recipe.RecipeName]">
-      <span class="text-dark fw-bold">Recipe Details >></span>
+      <span class="text-dark fw-bold" routerLinkActive="detailed">Recipe Details >></span>
     </div>
     <div class="card-body">
       <h5 class="card-title text-warning">{{recipe.RecipeName}}</h5>

@@ -1,17 +1,19 @@
 
 <!-- display data -->
 <br>
-<div class="container-fluid">
+<div class="container-fluid ">
   <div class="row justify-content-center">
     <div class="text-center text-white mt-4">
-      <H1>Shopping List</H1>
+      <H1>Shopping List <i class="bi bi-cart-fill"></i></H1>
     </div>
-    <div class="col-md-8">
+    
+    <div class="col-md-8 mt-3">
       <button type="button" class="btn btn-success" (click)="onAddmore()">Add More</button>
     </div>
     <br>
-    <div class="d-flex justify-content-between text-dark col-md-8 bg-light px-5 py-3 my-3"
-      *ngFor="let shoppingData of ShoppingList; let i = index">
+
+    <div class="d-flex justify-content-between text-dark col-md-8 bg-light px-5 py-3 my-3 "
+      *ngFor="let shoppingData of ShoppingList; let i = index" @fade data-aos="flip-left">
       <div><strong>{{this.shoppingData.Item}}</strong></div>
       <div>{{this.shoppingData.Amount}}</div>
       <div class="d-flex">
@@ -22,3 +24,8 @@
     </div>
   </div>
 </div>
+<br>
+<br>
+<br>
+<br>
+<app-confirm [message]="delMsg" *ngIf="delMsg" (close)="onClose()" (ok)="onOk()"></app-confirm>

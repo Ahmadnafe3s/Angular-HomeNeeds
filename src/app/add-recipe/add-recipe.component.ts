@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from "../Shared/features/Recipe.service";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
@@ -13,8 +13,8 @@ export class AddRecipeComponent implements OnInit {
   recipeList: any;
   editMode: boolean = false; //By default it will be false
   editIndex: number;
-
-  constructor(private recipeService: RecipeService, private routeParam: ActivatedRoute) {
+  msg: string | null = null;
+  constructor(private recipeService: RecipeService, private routeParam: ActivatedRoute, private route: Router) {
     this.recipeList = recipeService.getRecipes()
   }
 
@@ -70,9 +70,11 @@ export class AddRecipeComponent implements OnInit {
   onSubmit() {
     if (this.editMode) {
       this.recipeService.onUpdate(this.editIndex, this.recipeForm.value)
+      this.msg = 'Your data has been Updated Do you want to Navigate'
     }
     else {
       this.recipeService.upsertdata(this.recipeForm.value)
+      this.msg = 'Your data has been Saved Do you want to Navigate'
     }
 
     this.editMode = false;
@@ -80,6 +82,13 @@ export class AddRecipeComponent implements OnInit {
     (<FormArray>this.recipeForm.get('ingredients')).clear(); // To delete all elemets inside the array..
   }
 
+  onOk() {
+    this.route.navigate(['recipe'])
+  }
+
+  onClose() {
+    this.msg = null;
+  }
 
   addIngredient() {
     const Control = new FormGroup({
