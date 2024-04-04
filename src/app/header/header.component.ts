@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { RecipeService } from '../Shared/features/Recipe.service';
 import { Recipe } from '../recipe-book/recipe-model';
 import { AuthService } from '../auth/auth.service';
@@ -10,12 +10,18 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+
+  @ViewChild('checkbox') checkbox: ElementRef;
+
   isAuthenticated = false;
-  constructor(private recipeService: RecipeService, private authService: AuthService) {
-  }
+  isNavopen = false;
+
+  constructor(private recipeService: RecipeService, private authService: AuthService, private renderer: Renderer2) { }
 
   obser: Subscription;
   logMsg: string | null = null;
+
+
   FetchData() {
     this.recipeService.FetchData().subscribe(
       (recipes: Recipe[]) => {
@@ -24,6 +30,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     )
   }
 
+
+  handleNav() {
+    this.isNavopen = !this.isNavopen
+  }
+
+  onNavigate() {
+    this.isNavopen = false;
+    this.checkbox.nativeElement.checked = false
+  }
 
 
   ngOnInit(): void {

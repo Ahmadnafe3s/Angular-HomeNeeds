@@ -1,24 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 
-.dark{
-  background-color: black;
-  font-family: 'Roboto', sans-serif;
-overflow:hidden;
-overflow-y: scroll;
+/* LOGO */
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
+
+/* Other Display */
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
+
+.bg-color {
+  background-color: #e8e8e8;
+  font-family: "Fira Sans", sans-serif;
 }
 
-input{
+input {
   border: 1px solid rgba(255, 255, 255, 0.261) !important;
   box-shadow: none !important;
   background-color: rgba(0, 0, 0, 0.317) !important;
   color: rgb(255, 255, 255) !important;
 }
 
-input:focus{
+input:focus {
   border: 2px solid rgb(0, 225, 255) !important;
 }
 
 
-input::placeholder{
+input::placeholder {
   color: rgb(155, 155, 155) !important;
 }
