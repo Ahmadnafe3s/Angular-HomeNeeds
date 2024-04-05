@@ -12,17 +12,10 @@
 }
 
 input {
-  border: 1px solid rgba(255, 255, 255, 0.261) !important;
+  border: 1px solid rgb(0, 0, 0) !important;
   box-shadow: none !important;
-  background-color: rgba(0, 0, 0, 0.317) !important;
-  color: rgb(255, 255, 255) !important;
 }
 
-input:focus {
-  border: 2px solid rgb(0, 225, 255) !important;
-}
-
-
-input::placeholder {
-  color: rgb(155, 155, 155) !important;
+:root{
+  --highlight : rgb(6, 121, 0);
 }

@@ -32,12 +32,14 @@
 
 a {
     cursor: pointer;
-    padding: 7px 12px;
-    border-radius: 20px;
+    padding: 8px 13px;
+    border-radius: 25px;
+    font-weight: 600;
+
 }
 
 .navActive {
-    background-color: rgba(219, 236, 255, 0.837);
+    background-color: rgba(221, 255, 219, 0.837);
 }
 
 
@@ -64,7 +66,7 @@ a {
     right: 0;
     height: 4px;
     border-radius: calc(4px / 2);
-    background: #7b52b9;
+    background: rgb(76, 155, 72);
     color: inherit;
     opacity: 1;
     transition: none 0.35s cubic-bezier(.5, -0.35, .35, 1.5) 0s;
@@ -142,7 +144,6 @@ a {
         display: block;
         margin: 15px 0;
         padding: 0;
-        font-weight: 600;
     }
 
 

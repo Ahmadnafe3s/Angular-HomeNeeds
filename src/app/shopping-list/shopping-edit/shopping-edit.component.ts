@@ -3,7 +3,6 @@ import { RecipeService } from "../../Shared/features/Recipe.service";
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, take } from 'rxjs';
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
-// import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -42,6 +41,7 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
   ]
 
 })
+
 export class ShoppingEditComponent implements OnInit, OnDestroy {
   ShoppingList: any = [];
   cancelObs: Subscription;

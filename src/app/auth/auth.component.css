@@ -1,15 +1,16 @@
-
-
-input.ng-invalid.ng-touched{
+input.ng-invalid.ng-touched {
     border: 2px solid rgb(255, 0, 0) !important;
 }
 
-.f-bg{
+.f-bg {
     border: 1px solid #ffffff4f;
     padding: 20px 20px;
-    border-radius: 15px;
-    background-color: #ffffff12;
-    margin: 17vh 0;
-  }
+    /* border-radius: 10px; */
+    background-color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-
+    backdrop-filter: blur(5px);
+}

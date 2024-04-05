@@ -1,43 +1,55 @@
-
-    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
 
 <!-- Alert Model -->
 <app-alert [message]="responseMsg" *ngIf="responseMsg" (close)="onHandleError()"></app-alert>
 
 
-    <div class="row justify-content-center align-items-center">
+<form class="container-fluid" [formGroup]="authForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
 
-        <div class="col-lg-3 col-10 f-bg " *ngIf="!isLoading">
+    <div class="row justify-content-center">
 
-            <div style="height: 100px; width: 100px;" class="mx-auto"><img src="assets\logo.png" height="auto" width="100%">
+        <div class="col-md-5 col-lg-3 col-10 f-bg">
+
+            <p style="font-size: 30px; font-weight: 600; text-align: center;">
+                {{isLogging ?'Sign In' : 'Sign Up'}}
+            </p>
+
+            <p style="color: grey; text-align: center;">
+                {{isLogging ?'Welcome! to your account.' : 'Create a free account by email.'}}
+            </p>
+
+            <div class="mb-3">
+                <label for="email">Email</label>
+                <input type="text" id="Email" class="form-control" formControlName="email"
+                    placeholder="example@gmail.com">
+                <p class="text-secondary" style="font-size: 14px;"
+                    *ngIf="authForm.get('email').invalid && authForm.get('email').touched">Enter Valid Email!</p>
             </div>
 
-            <form [formGroup]="authForm" (ngSubmit)="onSubmit()"> <!--Always FormGroup-->
-                <div class="mb-2">
-                    <label for="email">Email</label>
-                    <input type="text" id="Email" class="form-control" formControlName="email"
-                        placeholder="example@gmail.com">
-                    <span class="text-secondary"
-                        *ngIf="authForm.get('email').invalid && authForm.get('email').touched">Enter Valid Email!</span>
-                </div>
-                
-                <div>
-                    <label for="Password">Password</label>
-                    <input type="password" id="Password" class="form-control" formControlName="password"
-                        placeholder="Password">
-                    <span class="text-secondary"
-                        *ngIf="authForm.get('password').invalid && authForm.get('password').touched">Enter Valid
-                        Password!</span>
-                </div>
-                <br>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-outline-light" [disabled]="!authForm.valid">{{isLogging ? 'Log
-                        in' :
-                        'Sign Up'}}</button>
-                    |
-                    <button type="button" class="btn btn-warning" (click)="loginMode()">{{isLogging ?
-                      'Sign Up' : 'Log in'}} </button>
-                </div>
-            </form>
+            <div>
+                <label for="Password">Password</label>
+                <input type="password" id="Password" class="form-control" formControlName="password"
+                    placeholder="Password">
+                <p class="text-secondary" style="font-size: 14px;"
+                    *ngIf="authForm.get('password').invalid && authForm.get('password').touched">Enter Valid
+                    Password!</p>
+            </div>
+
+
+            <br>
+            <!-- submit button -->
+            <button type="submit" class="btn btn-success" style="width: 100%;" [disabled]="!authForm.valid">
+                {{isLogging ? 'Login' :'Sign Up'}}
+            </button>
+
+            <!-- switch log in mode -->
+            <div class="mt-3 text-center">
+                <a type="button" (click)="loginMode()">
+                    switch to <span style="color: #1751ff; font-weight: 600;font-size: 16px;">{{isLogging ?'Sign Up' :
+                        'Log in'}}</span>
+                </a>
+            </div>
+
         </div>
     </div>
+</form>
