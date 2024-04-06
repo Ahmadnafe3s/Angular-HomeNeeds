@@ -13,8 +13,12 @@ export class AuthComponent implements OnInit {
   isLogging = true;
   authForm: FormGroup;
   isLoading = false;
-  responseMsg = null;
+  errMessage = null;
   constructor(private authService: AuthService, private route: Router) { }
+
+  ngOnInit(): void {
+    this.authFormControl();
+  }
 
   private authFormControl() {
     const email = '';
@@ -26,13 +30,13 @@ export class AuthComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-    this.authFormControl();
+  loginMode() {
+    this.isLogging = !this.isLogging;
   }
 
   onSubmit() {
     this.isLoading = true;
-    this.responseMsg = null;
+    this.errMessage = null;
     const email = this.authForm.value.email
     const password = this.authForm.value.password
     let observ: Observable<authResponseData>;
@@ -44,25 +48,23 @@ export class AuthComponent implements OnInit {
     }
 
     observ.subscribe(
-      res => {
-        console.log(res);
+      () => {
         this.isLoading = false;
         this.route.navigate(['/recipe']);
+        this.authForm.reset()
       },
       err => {
         this.isLoading = false;
-        this.responseMsg = err;
+        this.hideToast(err)
       }
     )
-
-    this.authForm.reset()
   }
 
-  loginMode() {
-    this.isLogging = !this.isLogging;
+  hideToast(Error) {
+    this.errMessage = Error;
+    setTimeout(() => {
+      this.errMessage = null
+    }, 3000);
   }
 
-  onHandleError() {
-    this.responseMsg = null;
-  }
 }

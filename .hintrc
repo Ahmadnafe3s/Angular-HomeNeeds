@@ -31,6 +31,8 @@
         ]
       }
     ],
-    "button-type": "off"
+    "button-type": "off",
+    "typescript-config/consistent-casing": "off",
+    "typescript-config/strict": "off"
   }
 }

@@ -81,7 +81,9 @@ export class AuthService {
     private HandleError(errRes: HttpErrorResponse) {
         let errorMessage = 'Network Error!'
         if (!errRes.error || !errRes.error.error) {
-            return throwError(errorMessage);
+            return throwError(() => {
+                throw new Error(errorMessage)
+            })
         }
         switch (errRes.error.error.message) {
             case 'EMAIL_EXISTS':
@@ -93,7 +95,9 @@ export class AuthService {
             case 'EMAIL_NOT_FOUND':
                 errorMessage = "Invalid Email";
         }
-        return throwError(errorMessage);
+        return throwError(() => {
+            throw new Error(errorMessage)
+        })
     }
 
     clearTime = null;

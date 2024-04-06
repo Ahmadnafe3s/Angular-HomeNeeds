@@ -2,47 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RecipeService } from "../../Shared/features/Recipe.service";
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, take } from 'rxjs';
-import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-shopping-edit',
   templateUrl: './shopping-edit.component.html',
   styleUrls: ['./shopping-edit.component.css'],
-  animations: [
-    trigger('fade', [
-
-      state('in', style({
-        transform: 'transition(0)',
-        opacity: 1
-      })),
-
-      transition('* => void', [
-        animate(300, keyframes([
-          style({
-            transform: 'translateX(-100px)',
-            opacity: 1,
-            offset: 0.3
-          }),
-          style({
-            transform: 'translateX(-150px)',
-            opacity: 0.5,
-            offset: 0.8
-          }),
-          style({
-            transform: 'translateX(-200px)',
-            opacity: 0,
-            offset: 1
-          })
-        ]))
-      ])
-
-    ])
-
-  ]
-
 })
 
-export class ShoppingEditComponent implements OnInit, OnDestroy {
+export class ShoppingEditComponent implements OnInit {
   ShoppingList: any = [];
   cancelObs: Subscription;
   delMsg: null | string;
@@ -94,9 +61,6 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   onAddmore() {
     this.recipeService.Index.next(null)
     this.route.navigate(['new'], { relativeTo: this.active })
-  }
-
-  ngOnDestroy(): void {
   }
 
 }

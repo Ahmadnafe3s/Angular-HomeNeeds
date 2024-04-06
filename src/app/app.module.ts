@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -7,9 +7,6 @@ import { RouterModules } from "./Router.module";
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { InteceptorService } from './auth/inteceptor.service';
 import { SharedModule } from './Shared/shared.module';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-
-
 
 
 @NgModule({
@@ -22,7 +19,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     RouterModules,
     HttpClientModule,
     SharedModule,
-    BrowserAnimationsModule,
   ],
   providers: [
     RecipeService,
