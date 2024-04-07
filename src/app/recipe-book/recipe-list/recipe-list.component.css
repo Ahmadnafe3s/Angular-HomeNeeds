@@ -1,85 +1,58 @@
-@import "~bootstrap-icons/font/bootstrap-icons.css";
-
-.clip {
-  transition: 0.2s;
+.lighter {
+  font-size: 0.9em;
 }
 
-.clip:hover {
-  color: white;
-}
-
-#Title-color {
-  color: red;
-}
-
+/*IF USING IMAGES*/
 
 .card {
-  display: inline-block;
-  padding: 0px;
-  height: fit-content;
+  background-color: white;
+  color: black;
+  width: 300px;
+  max-height: 350px;
+  border-radius: 8px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
-.icon1 {
-  width: 25px;
-  height: 25px;
-  background-color: #ffad0d;
-  border-radius: 20px;
-  /*text-align: center;*/
-  color: #000000;
-  font-size: 13px;
-  padding-top: 2px;
-  padding-left: 7px;
-  margin: 12px;
-  transition: all 0.5s ease-in-out;
-  overflow: hidden;
+.card-img {
+  position: relative;
+  top: -20px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
 }
 
-/*.icon1:hover{*/
-/*  width: 100px;*/
-/*}*/
-
-.addWidth{
-  width: 100px;
-}
-.boad {
-  background-color: #ffbb2e;
-  padding: 30px;
-  border-radius: 10% 30% 50% 60%;
-  text-align: center !important;
-}
-
-.boad span {
-  font-size: 80px;
-}
-
-.boad p {
-  font-size: 40px;
-}
-
-.boadfont {
-  font-size: 20px !important;
+/* Change the .card-img div to .card-img img to use img*/
+.card-img a,
+.card-img img {
+  height: 150px;
   width: 90%;
-  padding-left: 50px;
-  color: #000000;
-  /*text-align: center!important;*/
+  /* Change this width here to change the width of the color/image */
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-i {
-  cursor: pointer;
+.card-imgs {
+  transition: all 0.5s;
 }
 
-.filter{
-  display: inline-block;
-  padding: 12px 12px;
-  border-radius: 30px;
-  width: 60px;
-  font-size: 24px;
-  text-align: center;
+
+
+
+
+.c-img {
+  object-fit: cover;
+  height: 100%;
+  filter: brightness(0.6);
 }
 
-.detailed{
-  background-color: black;
-  padding: 6px 10px;
-  color: white !important;
-  border-radius: 10px;
+.c-item {
+  height: 750px;
+}
+
+@media screen and (max-width : 700px) {
+  .c-item {
+    height: 200px;
+  }
 }

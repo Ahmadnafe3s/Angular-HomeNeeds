@@ -1,15 +1,54 @@
-<div class="boad">
-  <p class="animate__fadeInUp"><span class="text-danger">R</span>ecipe <span class="text-danger">B</span>ook</p>
-  <p class="boadfont">Explore the foodie in you.</p>
+<div id="carouselExampleCaptions" class="carousel slide mt-3" data-bs-ride="true">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+      aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active c-item">
+      <img
+        src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        class="d-block w-100 c-img" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>First slide label</h5>
+        <p>Some representative placeholder content for the first slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item c-item">
+      <img src="https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg" class="d-block w-100 c-img" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Second slide label</h5>
+        <p>Some representative placeholder content for the second slide.</p>
+      </div>
+    </div>
+    <div class="carousel-item c-item">
+      <img
+        src="https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        class="d-block w-100 c-img" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Third slide label</h5>
+        <p>Some representative placeholder content for the third slide.</p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
-<br>
 
 <div class="text-center" *ngIf="ErrorMsg">
   <h3>{{ErrorMsg}}</h3>
 </div>
 
 
-<div class="row justify-content-evenly mt-3" *ngIf="isFetching">
+
+<!-- <div class="row justify-content-evenly mt-3" *ngIf="isFetching">
   <div class="card col-md-4 mx-5 my-5 col-8 border-warning bg-dark" aria-hidden="true"
     *ngFor="let placeholder of PlaceHolders">
     <div class="card-body">
@@ -26,10 +65,10 @@
       <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Display section -->
-<div class="row justify-content-evenly" *ngIf="!isFetching">
+<!-- <div class="row justify-content-evenly" *ngIf="!isFetching">
   <div class="card border-warning bg-dark mx-5 my-3 text-white" style="max-width: 18rem;"
     *ngFor="let recipe of recipeList; let index = index" [@fade] data-aos="zoom-in-down">
     <div style="cursor: pointer;" class="card-header text-dark bg-warning" [routerLink]="[index , recipe.RecipeName]">
@@ -44,4 +83,33 @@
       <i class="bi bi-pencil ms-4  icon-pd clip" (click)="onEdit(index)"></i>
       <i class="bi bi-trash3 ps-2 icon-pd clip" (click)="deleterecipe(index)"></i>
     </div>
+  </div> -->
+
+
+
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+
+    <article class="card mt-5 me-md-5">
+      <!-- Image section -->
+      <div class="card-img">
+        <img src="https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg" class="card-imgs pv delete">
+      </div>
+
+      <!-- Other sections -->
+      <section class="px-3 " style="margin-top: 50px;">
+        <p class="fs-4">Title</p>
+        <p class="text-secondary" [style]="{'max-height' : '70px' , 'overflow' : 'hidden'}">Lorem ipsum dolor sit amet
+          consectetur adipisicing
+          elit. Iste, provident hshhfoh wugugdigu gagd.</p>
+
+        <!-- button -->
+        <div class="pb-3">
+          <button type="button" class="btn btn-primary w-100">Checkout</button>
+        </div>
+      </section>
+    </article>
+
   </div>
+</div>
