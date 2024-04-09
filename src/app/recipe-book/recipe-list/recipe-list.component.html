@@ -42,6 +42,7 @@
   </button>
 </div>
 
+
 <!-- Card to display recipe lists -->
 
 <div class="container my-5" *ngIf="!ErrorMsg && !isLoading">
@@ -68,10 +69,11 @@
   </div>
 </div>
 
-
+<!-- Error Window -->
 <div class="text-center mt-5 alert alert-danger w-50 mx-auto" *ngIf="ErrorMsg">
   <h3>{{ErrorMsg}}</h3>
 </div>
 
-<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
 
+<!-- Loading spiner -->
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
