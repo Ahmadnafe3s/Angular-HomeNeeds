@@ -50,7 +50,7 @@ export class AuthComponent implements OnInit {
     observ.subscribe(
       () => {
         this.isLoading = false;
-        this.route.navigate(['/recipe']);
+        this.route.navigate(['/recipeList']);
         this.authForm.reset()
       },
       err => {

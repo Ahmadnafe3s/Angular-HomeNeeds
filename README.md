@@ -25,3 +25,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Separating Router Module
+
+I did it because i have used lazyLoading functionality in this project . So Separating Router Module base upon componenets is essential for lazy loading...

@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { RecipeService } from '../Shared/features/Recipe.service';
-import { Recipe } from '../recipe-book/recipe-model';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 
@@ -23,11 +22,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
   FetchData() {
-    this.recipeService.FetchData().subscribe(
-      (recipes: Recipe[]) => {
-        this.recipeService.recipeList = recipes;
-      }
-    )
+    // this.recipeService.FetchData().subscribe(
+    //   (recipes: Recipe[]) => {
+    //     this.recipeService.recipeList = recipes;
+    //   }
+    // )
   }
 
 

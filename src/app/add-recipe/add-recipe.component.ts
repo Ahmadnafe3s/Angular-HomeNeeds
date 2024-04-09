@@ -73,7 +73,7 @@ export class AddRecipeComponent implements OnInit {
       this.msg = 'Your data has been Updated Do you want to Navigate'
     }
     else {
-      this.recipeService.upsertdata(this.recipeForm.value)
+      this.recipeService.onPost(this.recipeForm.value)
       this.msg = 'Your data has been Saved Do you want to Navigate'
     }
 
