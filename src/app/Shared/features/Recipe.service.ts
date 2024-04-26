@@ -7,7 +7,7 @@ import { RecipeModel } from "src/app/recipe-book/recipe-model";
 @Injectable()
 
 export class RecipeService {
-  
+
   toShopping = new Subject<any>()
   recipeList: RecipeModel[] = [];
   recipesApi: string = 'https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes.json'
@@ -16,8 +16,8 @@ export class RecipeService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  onPost(formValue) {
 
+  onPost(formValue) {
     this.http.post(this.recipesApi, formValue).subscribe(
       res => {
         console.log(res);
@@ -44,8 +44,14 @@ export class RecipeService {
   }
 
 
-  getRecipes() {
+  getRecipeDeatils(ID: String) {
+    return this.http.get<RecipeModel>(`https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes/${ID}.json`).pipe(map(recipeDetails => {
+      return { ID: ID, ...recipeDetails }
+    }))
+  }
 
+
+  getRecipes() {
     return this.http.get<RecipeModel[]>(this.recipesApi).pipe(map(RecipeList => {
       let tempArry = []
       for (const Objkey in RecipeList) {

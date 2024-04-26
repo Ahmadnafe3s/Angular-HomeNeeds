@@ -5,7 +5,8 @@
   "projects": {
     "homeneeds": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -29,8 +30,8 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "src/styles.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -96,8 +97,8 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "src/styles.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css"
             ],
             "scripts": []
           }

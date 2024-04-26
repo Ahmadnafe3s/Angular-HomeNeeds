@@ -6,10 +6,17 @@
 /* Other Display */
 @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
 
-.bg-color {
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#bg{
   background-color: #e8e8e8;
   font-family: "Fira Sans", sans-serif;
 }
+
 
 input {
   border: 1px solid rgb(0, 0, 0) !important;
@@ -17,6 +24,6 @@ input {
   border-radius: 0 !important;
 }
 
-:root{
-  --highlight : rgb(6, 121, 0);
+:root {
+  --highlight: rgb(6, 121, 0);
 }

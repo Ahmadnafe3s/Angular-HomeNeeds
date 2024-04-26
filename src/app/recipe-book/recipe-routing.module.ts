@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { AuthGuard } from "../auth/Auth-guard.service";
 import { RecipeBookComponent } from "./recipe-book.component";
-import { RecipeDetailsComponent } from "./recipe-details/recipe-details.component";
 import { RouterModule, Routes } from "@angular/router";
 import { RecipeListComponent } from "./recipe-list/recipe-list.component";
+import { RecipeDetailsComponent } from "./recipe-details/recipe-deatials.component";
 
 // path null '' for parent comp because we gave it path inside the main route module 
 

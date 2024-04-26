@@ -1,4 +1,4 @@
-<div id="carouselExampleCaptions" class="carousel slide mt-3" data-bs-ride="true" *ngIf="!ErrorMsg && !isLoading">
+<!-- <div id="carouselExampleCaptions" class="carousel slide mt-3" data-bs-ride="true" *ngIf="!ErrorMsg && !isLoading">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
       aria-current="true" aria-label="Slide 1"></button>
@@ -40,7 +40,7 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
-</div>
+</div> -->
 
 
 <!-- Card to display recipe lists -->
@@ -48,7 +48,7 @@
 <div class="container my-5" *ngIf="!ErrorMsg && !isLoading">
   <div class="row justify-content-center">
 
-    <article class="card mt-5 me-md-5 col-9 col-md-3" *ngFor="let RecipeList of recipeList">
+    <article class="card mt-5 me-md-5 col-9 col-sm-5 col-lg-3" *ngFor="let RecipeList of recipeList">
       <!-- Image section -->
       <div class="card-img">
         <img src="{{RecipeList.Image}}" class="card-imgs pv delete">
