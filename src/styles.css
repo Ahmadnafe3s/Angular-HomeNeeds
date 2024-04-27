@@ -7,6 +7,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
 
 
+/* Font for Recipe Name in details */
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -26,4 +29,5 @@ input {
 
 :root {
   --highlight: rgb(6, 121, 0);
+  --heading :  "Lobster", sans-serif;
 }

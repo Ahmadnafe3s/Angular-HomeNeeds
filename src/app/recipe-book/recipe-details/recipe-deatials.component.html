@@ -1,1 +1,43 @@
-<h1>Hello Nafees</h1>
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+<div class="image-frame" *ngIf="!isLoading">
+    <img [src]="RecipeDetails.Image" class="image">
+</div>
+
+<div class="container-fluid mb-5" *ngIf="!isLoading">
+    <div class="row justify-content-center">
+        <div class="col-11 col-md-10" id="info-bg">
+            <h1 class="R-Name my-5">{{RecipeDetails.RecipeName}}</h1>
+            <p [innerHTML]="Details" class="details"></p>
+
+            <!-- This is for table -->
+            <section class="mx-auto col-md-10 table-responsive" style="margin-top: 60px;" *ngIf="RecipeDetails.ingredients">
+                <table class="table table-hover mb-4">
+                    <thead class="table-success">
+                        <tr>
+                            <th scope="col">Ingredient</th>
+                            <th scope="col">Qty.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let Ingredients of RecipeDetails.ingredients">
+                            <td>{{Ingredients.Item}}</td>
+                            <td>{{Ingredients.Amount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-end py-4">
+                    <a class="link-primary" (click)="onShoppingList()">Send to Shopping List</a>
+                </div>
+            </section>
+        </div>
+        <!-- Edit and Delete button -->
+        <div class="col-11 col-md-10 text-center mt-3 mb-5">
+            <a class="link-primary" (click)="onEdit()">Edit</a>
+            <span class="mx-2">|</span>
+            <a class="link-danger" (click)="onDelete()">Delete</a>
+        </div>
+    </div>
+</div>
+
+<app-confirm (close)="onClose()" (ok)="onOk()" *ngIf="deleteMessage"  [message]="deleteMessage"></app-confirm>

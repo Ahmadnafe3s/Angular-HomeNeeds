@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from "../Shared/features/Recipe.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { RecipeModel } from '../recipe-book/recipe-model';
 
 @Component({
   selector: 'app-add-recipe',
@@ -10,12 +11,14 @@ import { FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/
 })
 export class AddRecipeComponent implements OnInit {
   recipeForm: FormGroup;
-  recipeList: any;
-  editMode: boolean = false; //By default it will be false
-  editIndex: number;
+  editMode: boolean = false;
+  ID: String;
   msg: string | null = null;
+  isLoading: boolean = false;
+  recipeDeatils: RecipeModel;
+  length: number;
   constructor(private recipeService: RecipeService, private routeParam: ActivatedRoute, private route: Router) {
-    this.recipeList = recipeService.getRecipes()
+
   }
 
   // subscribing queryParams
@@ -23,36 +26,50 @@ export class AddRecipeComponent implements OnInit {
   ngOnInit(): void {
 
     this.routeParam.queryParams.subscribe((params: Params) => {
-      this.editIndex = +params.edit
-      this.editMode = params.editMode
-      this.initForm();
+      this.ID = params.ID
+      this.editMode = params.ID
     })
 
+    if (this.editMode) {
+      this.isLoading = true;
+      console.log("Fetching Data....");
+      this.recipeService.getRecipeDeatils(this.ID).subscribe((recipeDetails) => {
+        this.recipeDeatils = recipeDetails
+        this.initForm();
+        this.isLoading = false
+      },
+        err => {
+
+        })
+    }
+
+    this.initForm();
   }
 
 
   // FormGroup
   private initForm() {
-    let RecipeName = '';
-    let Description = '';
-    let image = '';
-    let RecipeDetail = '';
+    let RecipeName: String = '';
+    let Description: String = '';
+    let image: String = '';
+    let RecipeDetail: String = '';
     let ingredients = new FormArray([]);
 
-    if (this.editMode) {
-      RecipeName = this.recipeList[this.editIndex].RecipeName;
-      Description = this.recipeList[this.editIndex].Description;
-      image = this.recipeList[this.editIndex].Image
-      RecipeDetail = this.recipeList[this.editIndex].RecipeDetail;
-      if (this.recipeList[this.editIndex].ingredients) {
-        for (let separateIng of this.recipeList[this.editIndex].ingredients) {
-          ingredients.push(
-            new FormGroup({
-              'Item': new FormControl(separateIng.Item, Validators.required),
-              'Amount': new FormControl(separateIng.Amount, Validators.required)
-            })
-          )
-        }
+    if (this.editMode && this.recipeDeatils) {
+
+      RecipeName = this.recipeDeatils.RecipeName
+      Description = this.recipeDeatils.Description
+      image = this.recipeDeatils.Image
+      RecipeDetail = this.recipeDeatils.RecipeDetail
+
+      for (const Ingredients of this.recipeDeatils.ingredients) {
+        ingredients.push(
+          new FormGroup({
+            'Item': new FormControl(Ingredients.Item, Validators.required),
+            'Amount': new FormControl(Ingredients.Amount, Validators.required)
+          })
+        )
+
       }
     }
 
@@ -61,15 +78,17 @@ export class AddRecipeComponent implements OnInit {
       'Description': new FormControl(Description, Validators.required),
       'Image': new FormControl(image, Validators.required),
       'RecipeDetail': new FormControl(RecipeDetail, Validators.required),
-      'ingredients': ingredients
+      'ingredients': ingredients // here ingredient variable working as two ways (1st it Assigns FormArrayControl to this field , 2nd It assigns Array of form Group on editmode at this field.) 
     });
   }
 
 
 
   onSubmit() {
+    console.log(this.editMode);
+
     if (this.editMode) {
-      this.recipeService.onUpdate(this.editIndex, this.recipeForm.value)
+      this.recipeService.onUpdate(this.ID, this.recipeForm.value)
       this.msg = 'Your data has been Updated Do you want to Navigate'
     }
     else {
@@ -105,11 +124,12 @@ export class AddRecipeComponent implements OnInit {
     (<FormArray>this.recipeForm.get('ingredients')).clear();
   }
 
-  removeIng(index: number) {
-    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index) //works as splice method
+  removeIngControl() {
+    (<FormArray>this.recipeForm.get('ingredients')).removeAt(length - 1) //works as splice method
   }
 
   get Controls() {
+    this.length = (<FormArray>this.recipeForm.get('ingredients')).length;
     return (this.recipeForm.get('ingredients') as FormArray).controls
   }
 

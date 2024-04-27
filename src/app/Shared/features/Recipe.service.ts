@@ -25,13 +25,14 @@ export class RecipeService {
     )
   }
 
-  onUpdate(index: number, FormValue) {
-    this.recipeList[index] = FormValue
-    this.http.put(this.recipesApi, this.recipeList).subscribe(
+  onUpdate(ID: String, FormValue) {
+
+    this.http.put(`https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes/${ID}.json`, FormValue).subscribe(
       res => {
         console.log(res);
       }
     )
+
   }
 
 
@@ -50,7 +51,11 @@ export class RecipeService {
     }))
   }
 
+  deleteRecipe(ID: String) {
+    return this.http.delete(`https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes/${ID}.json`)
+  }
 
+  
   getRecipes() {
     return this.http.get<RecipeModel[]>(this.recipesApi).pipe(map(RecipeList => {
       let tempArry = []
