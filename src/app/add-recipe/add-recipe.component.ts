@@ -92,7 +92,7 @@ export class AddRecipeComponent implements OnInit {
     if (this.editMode) {
 
       this.recipeService.onUpdate(this.ID, this.recipeForm.value).subscribe(() => {
-        this.toastService.Toast.next({ type: 'success', message: 'Recipe Got Updated..', duration: 3000 })
+        this.toastService.Toast.next({ type: 'success', message: 'Recipe Got Updated.', duration: 3000 })
         this.isLoading = false;
         this.route.navigate(['recipeList/details' , this.ID])
       }, err => {
@@ -104,7 +104,7 @@ export class AddRecipeComponent implements OnInit {
     else {
 
       this.recipeService.onPost(this.recipeForm.value).subscribe(() => {
-        this.toastService.Toast.next({ type: 'success', message: 'Recipe Got Stored..', duration: 3000 })
+        this.toastService.Toast.next({ type: 'success', message: 'Recipe Got Saved.', duration: 3000 })
         this.isLoading = false;
       }, err => {
         this.toastService.Toast.next({ type: 'error', message: err, duration: 3000 })

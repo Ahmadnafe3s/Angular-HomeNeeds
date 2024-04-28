@@ -39,6 +39,9 @@
       </tr>
     </tbody>
   </table>
+  <div style="width: 75%; cursor: pointer;" class="text-end mx-auto py-3">
+    <a class="link-primary" (click)="onDeleteAll()">delete All</a>
+  </div>
 </div>
 
 <app-confirm [message]="delMsg" *ngIf="delMsg" (close)="onClose()" (ok)="onOk()"></app-confirm>

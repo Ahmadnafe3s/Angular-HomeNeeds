@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { RecipeService } from "src/app/Shared/features/Recipe.service";
 import { RecipeModel } from "../recipe-model";
+import { ToastService } from "src/app/Shared/Toast/Toast.service";
 
 @Component({
     selector: 'app-recipe-details',
@@ -16,7 +17,7 @@ export class RecipeDetailsComponent implements OnInit {
     Details: String;
     deleteMessage: null | string = null;
 
-    constructor(private activeRouter: ActivatedRoute, private recipeService: RecipeService, private router: Router) {
+    constructor(private activeRouter: ActivatedRoute, private recipeService: RecipeService, private router: Router, private toastService: ToastService) {
         this.activeRouter.params.subscribe((params: Params) => {
             this.ID = params.id;
         })
@@ -39,10 +40,15 @@ export class RecipeDetailsComponent implements OnInit {
     }
 
     onOk() {
-        this.recipeService.deleteRecipe(this.ID).subscribe(res => {
+        this.recipeService.deleteRecipe(this.ID).subscribe(() => {
             this.deleteMessage = null;
+            this.toastService.Toast.next({ type: 'success', message: 'Recipe Deleted.', duration: 3000 })
             this.router.navigate(['recipeList'])
-        })
+        },
+            err => {
+                this.toastService.Toast.next({ type: 'error', message: err, duration: 3000 })
+            }
+        )
     }
 
     onClose() {
@@ -50,7 +56,7 @@ export class RecipeDetailsComponent implements OnInit {
     }
 
     onEdit() {
-        this.router.navigate(['Recipe-Form'], { queryParams: {ID : this.ID} , fragment: 'Update-Recipe' })
+        this.router.navigate(['Recipe-Form'], { queryParams: { ID: this.ID }, fragment: 'Update-Recipe' })
     }
 
 
