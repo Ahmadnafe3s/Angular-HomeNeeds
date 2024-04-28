@@ -18,44 +18,25 @@ export class RecipeService {
 
 
   onPost(formValue) {
-    this.http.post(this.recipesApi, formValue).subscribe(
-      res => {
-        console.log(res);
-      }
-    )
+    return this.http.post(this.recipesApi, formValue).pipe(catchError(this.handleError))
   }
 
   onUpdate(ID: String, FormValue) {
-
-    this.http.put(`https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes/${ID}.json`, FormValue).subscribe(
-      res => {
-        console.log(res);
-      }
-    )
-
-  }
-
-
-  onDelete(deletdData: RecipeModel[]) {
-    this.http.put(this.recipesApi, deletdData).subscribe(
-      res => {
-        console.log(res);
-      }
-    )
+    return this.http.put(`https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes/${ID}.json`, FormValue).pipe(catchError(this.handleError))
   }
 
 
   getRecipeDeatils(ID: String) {
     return this.http.get<RecipeModel>(`https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes/${ID}.json`).pipe(map(recipeDetails => {
       return { ID: ID, ...recipeDetails }
-    }))
+    }), catchError(this.handleError))
   }
 
   deleteRecipe(ID: String) {
     return this.http.delete(`https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes/${ID}.json`)
   }
 
-  
+
   getRecipes() {
     return this.http.get<RecipeModel[]>(this.recipesApi).pipe(map(RecipeList => {
       let tempArry = []

@@ -3,6 +3,8 @@ import { RecipeService } from "../Shared/features/Recipe.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecipeModel } from '../recipe-book/recipe-model';
+import { ToastService } from '../Shared/Toast/Toast.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-recipe',
@@ -17,7 +19,7 @@ export class AddRecipeComponent implements OnInit {
   isLoading: boolean = false;
   recipeDeatils: RecipeModel;
   length: number;
-  constructor(private recipeService: RecipeService, private routeParam: ActivatedRoute, private route: Router) {
+  constructor(private recipeService: RecipeService, private routeParam: ActivatedRoute, private route: Router, private toastService: ToastService) {
 
   }
 
@@ -39,7 +41,7 @@ export class AddRecipeComponent implements OnInit {
         this.isLoading = false
       },
         err => {
-
+          this.toastService.Toast.next({ type: 'error', message: err, duration: 3000 })
         })
     }
 
@@ -85,26 +87,34 @@ export class AddRecipeComponent implements OnInit {
 
 
   onSubmit() {
+    this.isLoading = true;
 
     if (this.editMode) {
-      this.recipeService.onUpdate(this.ID, this.recipeForm.value)
+
+      this.recipeService.onUpdate(this.ID, this.recipeForm.value).subscribe(() => {
+        this.toastService.Toast.next({ type: 'success', message: 'Recipe Got Updated..', duration: 3000 })
+        this.isLoading = false;
+        this.route.navigate(['recipeList/details' , this.ID])
+      }, err => {
+        this.toastService.Toast.next({ type: 'error', message: err, duration: 3000 })
+        this.isLoading = false;
+      })
+
     }
     else {
-      this.recipeService.onPost(this.recipeForm.value)
+
+      this.recipeService.onPost(this.recipeForm.value).subscribe(() => {
+        this.toastService.Toast.next({ type: 'success', message: 'Recipe Got Stored..', duration: 3000 })
+        this.isLoading = false;
+      }, err => {
+        this.toastService.Toast.next({ type: 'error', message: err, duration: 3000 })
+        this.isLoading = false;
+      })
+
     }
 
-    this.editMode = false;
     this.recipeForm.reset();
     (<FormArray>this.recipeForm.get('ingredients')).clear(); // To delete all elemets inside the array..
-  }
-
-  
-  onOk() {
-    this.route.navigate(['recipe'])
-  }
-
-  onClose() {
-    this.msg = null;
   }
 
   addIngredient() {
