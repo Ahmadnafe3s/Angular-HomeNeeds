@@ -48,11 +48,7 @@
     </div>
 </form>
 
-<!-- Alert or Error Message -->
-<div id="toast" [ngClass]="{'show' : errMessage}">
-    <div id="img"><i id="alert-icon" class='bx bx-error'></i></div>
-    <div id="desc">{{errMessage}}</div>
-</div>
+
 
 <!-- Loading -->
 <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>

@@ -1,0 +1,5 @@
+<!-- Alert or Error Message -->
+<div id="toast" [ngClass]="{'show' : errMessage}" #toast>
+    <div id="img" [innerHTML]="icon" #img></div>
+    <div id="desc">{{errMessage}}</div>
+</div>

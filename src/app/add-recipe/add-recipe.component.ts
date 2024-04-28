@@ -85,15 +85,12 @@ export class AddRecipeComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.editMode);
 
     if (this.editMode) {
       this.recipeService.onUpdate(this.ID, this.recipeForm.value)
-      this.msg = 'Your data has been Updated Do you want to Navigate'
     }
     else {
       this.recipeService.onPost(this.recipeForm.value)
-      this.msg = 'Your data has been Saved Do you want to Navigate'
     }
 
     this.editMode = false;
@@ -101,6 +98,7 @@ export class AddRecipeComponent implements OnInit {
     (<FormArray>this.recipeForm.get('ingredients')).clear(); // To delete all elemets inside the array..
   }
 
+  
   onOk() {
     this.route.navigate(['recipe'])
   }

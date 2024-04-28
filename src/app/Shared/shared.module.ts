@@ -2,10 +2,12 @@ import { NgModule } from "@angular/core";
 import { LoadingSpinnerComponent } from "./loading-spinner/loading-spinner.component";
 import { CommonModule } from "@angular/common";
 import { ConfirmComponent } from "./alert-dialog/confirm.component";
+import { ToastComponent } from "./Toast/toast.component";
 @NgModule({
     declarations: [
         LoadingSpinnerComponent,
-        ConfirmComponent
+        ConfirmComponent,
+        ToastComponent
 
     ],
     imports: [CommonModule],
@@ -13,7 +15,7 @@ import { ConfirmComponent } from "./alert-dialog/confirm.component";
         LoadingSpinnerComponent,
         CommonModule,
         ConfirmComponent,
-
+        ToastComponent
     ]
 })
 export class SharedModule { }

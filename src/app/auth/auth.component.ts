@@ -3,6 +3,7 @@ import { FormControl, FormGroup, MaxLengthValidator, MinLengthValidator, Validat
 import { AuthService, authResponseData } from './auth.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastService } from '../Shared/Toast/Toast.service';
 
 @Component({
   selector: 'app-auth',
@@ -14,7 +15,8 @@ export class AuthComponent implements OnInit {
   authForm: FormGroup;
   isLoading = false;
   errMessage = null;
-  constructor(private authService: AuthService, private route: Router) { }
+
+  constructor(private authService: AuthService, private route: Router, private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.authFormControl();
@@ -50,21 +52,15 @@ export class AuthComponent implements OnInit {
     observ.subscribe(
       () => {
         this.isLoading = false;
+        this.toastService.Toast.next({ type: 'success', message: 'Successfully Login', duration: 3000 })
         this.route.navigate(['/recipeList']);
         this.authForm.reset()
       },
       err => {
         this.isLoading = false;
-        this.hideToast(err)
+        this.toastService.Toast.next({ type: 'error', message: err, duration: 3000 })
       }
     )
-  }
-
-  hideToast(Error) {
-    this.errMessage = Error;
-    setTimeout(() => {
-      this.errMessage = null
-    }, 3000);
   }
 
 }
