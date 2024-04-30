@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, } from '@angular/forms';
-import { Router } from '@angular/router';
-import { take } from 'rxjs';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ToastService } from 'src/app/Shared/Toast/Toast.service';
 import { RecipeService } from 'src/app/Shared/features/Recipe.service';
 
 @Component({
@@ -15,46 +15,40 @@ export class UpsertComponent implements OnInit {
     Index: number;
     ShoppingForm: FormGroup;
     msg: string | null = null;
-    constructor(private recipeService: RecipeService, private router: Router) { }
+
+    constructor(private recipeService: RecipeService, private router: Router, private activeRoute: ActivatedRoute, private toastService: ToastService) { }
 
     ngOnInit(): void {
-        if (localStorage.getItem('Shopping') == null) {
-            localStorage.setItem('Shopping', JSON.stringify([]));
-        }
-        this.ShoppingList = JSON.parse(localStorage.getItem('Shopping'));
-        this.recipeService.Index.pipe(take(1)).subscribe(index => {
-            this.Index = +index
-            this.editMode = !!index
+        this.ShoppingList = JSON.parse(localStorage.getItem('Shopping')) ? JSON.parse(localStorage.getItem('Shopping')) : [];
+        this.activeRoute.queryParams.subscribe((params: Params) => {
+            this.editMode = params.Index // if parameter will be avaliabe so it will act as true otherwise false
+            this.Index = params.Index
         })
-
         this.ShopForm();
     }
 
 
-    insertData() {
+    onSubmit() {
+
         if (this.editMode) {
+
             this.ShoppingList[this.Index] = this.ShoppingForm.value
             localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
-            this.editMode = false;
-            this.msg = "Your data has been Updated! Do you want to Navigate"
+            this.toastService.Toast.next({ type: 'success', message: 'Ingredient Updated.', duration: 3000 })
+            this.router.navigate(['shopping'])
 
         } else {
+
             this.ShoppingList.push(this.ShoppingForm.value);
             localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
-            this.msg = "Your data has been Saved! Do you want to Navigate"
+            this.toastService.Toast.next({ type: 'success', message: 'Ingredient Saved.', duration: 3000 })
+            
         }
 
         this.ShoppingForm.reset()
     }
 
-    onOk() {
-        this.router.navigate(['shopping'])
-    }
 
-    onClose() {
-        this.msg = null;
-    }
-    
     private ShopForm() {
         let Item = ''
         let Amount = ''

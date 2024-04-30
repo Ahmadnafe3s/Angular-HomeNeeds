@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from "../Shared/features/Recipe.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, MaxLengthValidator, MinValidator, Validators } from '@angular/forms';
 import { RecipeModel } from '../recipe-book/recipe-model';
 import { ToastService } from '../Shared/Toast/Toast.service';
-import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-add-recipe',
@@ -77,7 +77,7 @@ export class AddRecipeComponent implements OnInit {
 
     this.recipeForm = new FormGroup({
       'RecipeName': new FormControl(RecipeName, Validators.required),
-      'Description': new FormControl(Description, Validators.required),
+      'Description': new FormControl(Description, [Validators.required, Validators.maxLength(70)]),
       'Image': new FormControl(image, Validators.required),
       'RecipeDetail': new FormControl(RecipeDetail, Validators.required),
       'ingredients': ingredients // here ingredient variable working as two ways (1st it Assigns FormArrayControl to this field , 2nd It assigns Array of form Group on editmode at this field.) 
@@ -94,7 +94,7 @@ export class AddRecipeComponent implements OnInit {
       this.recipeService.onUpdate(this.ID, this.recipeForm.value).subscribe(() => {
         this.toastService.Toast.next({ type: 'success', message: 'Recipe Got Updated.', duration: 3000 })
         this.isLoading = false;
-        this.route.navigate(['recipeList/details' , this.ID])
+        this.route.navigate(['recipeList/details', this.ID])
       }, err => {
         this.toastService.Toast.next({ type: 'error', message: err, duration: 3000 })
         this.isLoading = false;
@@ -140,6 +140,5 @@ export class AddRecipeComponent implements OnInit {
     this.length = (<FormArray>this.recipeForm.get('ingredients')).length;
     return (this.recipeForm.get('ingredients') as FormArray).controls
   }
-
 
 }

@@ -8,6 +8,7 @@
     position: sticky;
     top: 0;
     z-index: 50;
+    box-shadow: 6px 0px 20px -3px black;
 }
 
 .navbar-brand {
@@ -15,6 +16,7 @@
     margin-top: 20px;
     font-family: "Sacramento", cursive;
     font-weight: 600;
+    cursor: pointer;
 
 }
 

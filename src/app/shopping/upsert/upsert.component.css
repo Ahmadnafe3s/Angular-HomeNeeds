@@ -1,11 +1,25 @@
 .f-bg{
-    border: 1px solid #ffffff4f;
-    padding: 20px 20px;
-    border-radius: 15px;
-    background-color: #ffffff12;
-    margin: 20vh 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% , -50%);
+  padding: 30px 20px 2px 20px;
+    background-color: #ffffff;
   }
 
   input.ng-invalid.ng-touched {
-    border: 2px solid red !important;
+    border: 1px solid red !important;
+  }
+
+  .heading{
+    font-family: var(--heading);
+    letter-spacing: 2px;
+  }
+
+  .slogan{
+    font-size: clamp(13px , 2vw , 16px);
+  }
+
+  a{
+    cursor: pointer;
   }

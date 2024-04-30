@@ -7,9 +7,9 @@
 .card {
   background-color: white;
   color: black;
-  /* width: 300px; */
   max-height: 350px;
-  border-radius: 8px;
+  border-radius: 0px;
+  padding: 0px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
@@ -27,17 +27,14 @@
 .card-img img {
   height: 150px;
   width: 90%;
-  /* Change this width here to change the width of the color/image */
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 4px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .card-imgs {
   transition: all 0.5s;
 }
-
-
 
 
 
@@ -51,8 +48,44 @@
   height: 750px;
 }
 
-@media screen and (max-width : 700px) {
+@media screen and (max-width : 769px) {
   .c-item {
     height: 200px;
   }
 }
+
+
+
+
+.img-container {
+  height: 180px;
+  width: 180px;
+}
+
+.header {
+  background-color: #c9c9c9a1;
+  padding: 80px 20px;
+}
+
+.heading {
+  font-size: clamp(50px, 5vw, 100px);
+  font-family: var(--heading);
+  letter-spacing: 3px;
+}
+
+.title {
+  color: gray;
+}
+
+@media screen and (min-width : 769px) {
+  .img-container {
+    height: 300px;
+    width: 300px;
+  }
+
+  .header {
+    background-color: #c9c9c9a1;
+    padding: 100px 30px;
+  }
+}
+

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Subject, catchError, map, throwError } from "rxjs";
+import { Subject, catchError, map, throwError } from "rxjs";
 import { AuthService } from "../../auth/auth.service";
 import { RecipeModel } from "src/app/recipe-book/recipe-model";
 
@@ -11,8 +11,6 @@ export class RecipeService {
   toShopping = new Subject<any>()
   recipeList: RecipeModel[] = [];
   recipesApi: string = 'https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes.json'
-
-  Index = new BehaviorSubject<null | string>(null)
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 

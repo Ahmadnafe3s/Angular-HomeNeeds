@@ -17,6 +17,7 @@ export class ToastComponent {
     constructor(private toastService: ToastService, private renderer: Renderer2) {
         
         toastService.Toast.subscribe(data => {
+            
             let toastBG;
             let imgBG;
 
@@ -35,6 +36,7 @@ export class ToastComponent {
             this.renderer.setStyle(this.toast.nativeElement, 'background', toastBG)
             this.renderer.setStyle(this.img.nativeElement, 'background', imgBG)
             this.errMessage = data.message;
+            
             setTimeout(() => {
                 this.errMessage = null
             }, data.duration);

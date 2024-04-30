@@ -1,73 +1,53 @@
-<!-- <div id="carouselExampleCaptions" class="carousel slide mt-3" data-bs-ride="true" *ngIf="!ErrorMsg && !isLoading">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-      aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active c-item">
-      <img
-        src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-        class="d-block w-100 c-img" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Some representative placeholder content for the first slide.</p>
+<section class="header">
+  <div class="container">
+    <div class="row justify-content-around align-items-center">
+
+      <div class="col-md-4">
+        <div class="img-container mx-auto">
+          <img src="../../../assets/images/logo.png" class="img-fluid">
+        </div>
       </div>
-    </div>
-    <div class="carousel-item c-item">
-      <img src="https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg" class="d-block w-100 c-img" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Second slide label</h5>
-        <p>Some representative placeholder content for the second slide.</p>
+
+
+      <div class="col-md-6 mt-5 mt-md-0 text-center">
+        <h1 class="heading"><span class="text-success">H</span>ome <span class="text-success">N</span>eeds</h1>
+        <p class="title">An amazing application for managing recipes and Shopping lists</p>
       </div>
-    </div>
-    <div class="carousel-item c-item">
-      <img
-        src="https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-        class="d-block w-100 c-img" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Third slide label</h5>
-        <p>Some representative placeholder content for the third slide.</p>
-      </div>
+
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div> -->
+</section>
+
 
 
 <!-- Card to display recipe lists -->
 
+
 <div class="container my-5" *ngIf="!ErrorMsg && !isLoading">
   <div class="row justify-content-center">
 
-    <article class="card mt-5 me-md-5 col-9 col-sm-5 col-lg-3" *ngFor="let RecipeList of recipeList">
-      <!-- Image section -->
+    <article class="card mt-5 mx-md-5 my-3 col-9 col-sm-5 col-lg-3" *ngFor="let RecipeList of recipeList">
+
       <div class="card-img">
         <img src="{{RecipeList.Image}}" class="card-imgs pv delete">
       </div>
 
-      <!-- Other sections -->
+
       <section class="px-3 " style="margin-top: 50px;">
-        <p class="fs-4">{{RecipeList.RecipeName}}</p>
-        <p class="text-secondary" [style]="{'max-height' : '70px' , 'overflow' : 'hidden'}">{{RecipeList.Description}}
+        <p class="fs-4" style="font-family: var(--heading);">{{RecipeList.RecipeName}}</p>
+        <p class="text-secondary" [style]="{'height' : '70px' , 'overflow' : 'hidden'}">{{RecipeList.Description}}
         </p>
-        <!-- button -->
+
         <div class="pb-3">
-          <button type="button" class="btn btn-primary w-100" (click)="onCheckout(RecipeList.ID)">Checkout</button>
+          <button type="button" class="btn btn-success w-100" (click)="onCheckout(RecipeList.ID)">Checkout</button>
         </div>
       </section>
     </article>
 
   </div>
 </div>
+
+
 
 <!-- Error Window -->
 <div class="text-center mt-5 alert alert-danger w-50 mx-auto" *ngIf="ErrorMsg">
@@ -77,3 +57,5 @@
 
 <!-- Loading spiner -->
 <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+

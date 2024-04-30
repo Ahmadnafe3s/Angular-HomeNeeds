@@ -1,25 +1,37 @@
-<app-confirm [message]="msg" *ngIf="msg" (close)="onClose()" (ok)="onOk()"></app-confirm>
-<div class="container-fluid">
+<form class="container" (ngSubmit)="onSubmit()" [formGroup]="ShoppingForm">
   <div class="row justify-content-center">
-    <form class="col-md-3 col-10 f-bg" (ngSubmit)="insertData()" [formGroup]="ShoppingForm">
-      <h3 class="text-center">{{editMode ? 'Update' : 'Ingredients'}}</h3>
+
+    <div class="col-md-5  col-xl-3 col-10 f-bg">
+
+      <h1 class="text-center mb-3 heading">{{editMode ? 'Update' : 'Ingredient'}}</h1>
+
+      <p class="text-center text-secondary slogan">{{editMode ? 'A balanced amount of ingredients makes tasty foods.' :
+        'Ingredient are essential for Cooking tasty foods.'}}</p>
+
       <label for="input1">Enter Item</label>
       <input type="text" class="form-control" placeholder="Enter Item" formControlName="Item">
       <span class="text-secondary" *ngIf="ShoppingForm.get('Item').invalid && ShoppingForm.get('Item').touched">Enter
         valid item!</span>
       <br>
+
       <label>Enter Amount</label>
       <input type="number" class="form-control" placeholder="Enter Amount" formControlName="Amount"
         pattern="^[1-9]+[0-9]*$">
       <span class="text-secondary"
         *ngIf="ShoppingForm.get('Amount').invalid && ShoppingForm.get('Amount').touched">Enter Valid Amount!</span>
 
-      <div class="text-center my-4">
-        <button type="submit" class="btn btn-warning" [disabled]="ShoppingForm.invalid">{{editMode ? 'Update' : 'Save'
+
+      <section class="text-center my-4">
+        <!-- submit button  -->
+
+        <button type="submit" class="btn btn-warning w-100 mb-3" [disabled]="ShoppingForm.invalid">{{editMode ? 'Update'
+          : 'Save Ingredient'
           }}</button>
-        |
-        <button type="button" class="btn btn-danger" (click)="reset()">Reset</button>
-      </div>
-    </form>
+
+        <!-- reset button -->
+        <a class="link-danger" (click)="reset()">Reset</a>
+      </section>
+    </div>
+
   </div>
-</div>
+</form>

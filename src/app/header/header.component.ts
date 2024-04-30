@@ -14,31 +14,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   isAuthenticated = false;
   isNavopen = false;
-
-  constructor(private recipeService: RecipeService, private authService: AuthService, private renderer: Renderer2) { }
-
   obser: Subscription;
   logMsg: string | null = null;
 
 
-  FetchData() {
-    // this.recipeService.FetchData().subscribe(
-    //   (recipes: Recipe[]) => {
-    //     this.recipeService.recipeList = recipes;
-    //   }
-    // )
-  }
-
-
-  handleNav() {
-    this.isNavopen = !this.isNavopen
-  }
-
-  onNavigate() {
-    this.isNavopen = false;
-    this.checkbox.nativeElement.checked = false
-  }
-
+  constructor(private recipeService: RecipeService, private authService: AuthService, private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.obser = this.authService.Users.subscribe(
@@ -48,11 +28,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
     )
   }
 
-
-  ngOnDestroy(): void {
-    this.obser.unsubscribe();
+  onHamburger() {
+    this.isNavopen = !this.isNavopen
+    this.blockScroll()
   }
 
+  onNavigate() {
+    this.isNavopen = false;
+    this.checkbox.nativeElement.checked = false
+    this.blockScroll()
+  }
+
+
+  blockScroll() {
+
+    const body = document.body
+
+    if (this.isNavopen) {
+      this.renderer.setStyle(body, 'overflow', 'hidden')
+      return true
+    }
+    this.renderer.setStyle(body, 'overflow', 'auto')
+
+  }
 
   onLogout() {
     this.logMsg = 'Do you really want to logout!'
@@ -66,4 +64,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.logMsg = null;
     this.authService.onLogout()
   }
+
+  ngOnDestroy(): void {
+    this.obser.unsubscribe();
+  }
+
 }

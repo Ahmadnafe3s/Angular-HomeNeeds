@@ -11,7 +11,8 @@
             <p [innerHTML]="Details" class="details"></p>
 
             <!-- This is for table -->
-            <section class="mx-auto col-md-10 table-responsive" style="margin-top: 60px;" *ngIf="RecipeDetails.ingredients">
+            <section class="mx-auto col-md-10 table-responsive" style="margin-top: 60px;"
+                *ngIf="RecipeDetails.ingredients">
                 <table class="table table-hover mb-4">
                     <thead class="table-success">
                         <tr>
@@ -31,13 +32,14 @@
                 </div>
             </section>
         </div>
+
         <!-- Edit and Delete button -->
         <div class="col-11 col-md-10 text-center mt-3 mb-5">
-            <a class="link-primary" (click)="onEdit()">Edit</a>
+            <a class="link-primary fw-bold" (click)="onEdit()">Edit</a>
             <span class="mx-2">|</span>
-            <a class="link-danger" (click)="onDelete()">Delete</a>
+            <a class="fw-bold link-danger" (click)="onDelete()">Delete</a>
         </div>
     </div>
 </div>
 
-<app-confirm (close)="onClose()" (ok)="onOk()" *ngIf="deleteMessage"  [message]="deleteMessage"></app-confirm>
+<app-confirm (close)="onClose()" (ok)="onOk()" *ngIf="deleteMessage" [message]="deleteMessage"></app-confirm>

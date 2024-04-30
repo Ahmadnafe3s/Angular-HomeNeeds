@@ -3,7 +3,7 @@
   </p>
 
   <div id="menuToggle" class="hamburger">
-    <input id="checkbox" type="checkbox" (click)="handleNav()" #checkbox>
+    <input id="checkbox" type="checkbox" (click)="onHamburger()" #checkbox>
     <label class="toggle" for="checkbox">
       <div class="bar bar--top"></div>
       <div class="bar bar--middle"></div>
@@ -41,7 +41,6 @@
           <ul class="dropdown-menu ">
             <li><a class="dropdown-item" [routerLink]="['/Recipe-Form']" fragment="New-Recipe" (click)="onNavigate()">Add
                 Recipes</a></li>
-            <li><a class="dropdown-item" (click)="FetchData()">Fetch Data</a></li>
           </ul>
         </div>
       </li>

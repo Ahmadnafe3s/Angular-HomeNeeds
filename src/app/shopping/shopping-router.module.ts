@@ -7,7 +7,7 @@ import { UpsertComponent } from "./upsert/upsert.component";
 const ShoppingRouter:Routes = [
     { path: '', component: ShoppingComponent , children:[
         {path: '' , component : ShoppingListComponent},
-        {path : 'new' , component:UpsertComponent}
+        {path : 'shoppingIngredient' , component:UpsertComponent}
     ]},
 ]
 
