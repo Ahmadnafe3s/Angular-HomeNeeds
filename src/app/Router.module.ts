@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 
-
 const AppRoutes: Routes = [
   { path: '', redirectTo: '/recipeList', pathMatch: 'full' },
   { path: 'recipeList', loadChildren: () => import('./recipe-book/recipe.module').then(x => x.RecipeModule) }, // mern syntax

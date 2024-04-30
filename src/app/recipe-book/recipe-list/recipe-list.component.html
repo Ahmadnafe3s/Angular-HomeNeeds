@@ -1,4 +1,4 @@
-<section class="header">
+<section class="header" *ngIf="!ErrorMsg && !isLoading">
   <div class="container">
     <div class="row justify-content-around align-items-center">
 
@@ -10,8 +10,8 @@
 
 
       <div class="col-md-6 mt-5 mt-md-0 text-center">
-        <h1 class="heading"><span class="text-success">H</span>ome <span class="text-success">N</span>eeds</h1>
-        <p class="title">An amazing application for managing recipes and Shopping lists</p>
+        <h1 class="heading"><span style="color: var(--highlight);">H</span>ome <span style="color: var(--highlight);">N</span>eeds</h1>
+        <p class=" title">An amazing application for managing recipes and Shopping lists</p>
       </div>
 
     </div>
@@ -21,7 +21,6 @@
 
 
 <!-- Card to display recipe lists -->
-
 
 <div class="container my-5" *ngIf="!ErrorMsg && !isLoading">
   <div class="row justify-content-center">
@@ -57,5 +56,3 @@
 
 <!-- Loading spiner -->
 <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
-
-

@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from "../Shared/features/Recipe.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { FormArray, FormControl, FormGroup, MaxLengthValidator, MinValidator, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecipeModel } from '../recipe-book/recipe-model';
 import { ToastService } from '../Shared/Toast/Toast.service';
-
+import { DeactivateComponent } from './can-deactivate.guard';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-recipe',
   templateUrl: './add-recipe.component.html',
   styleUrls: ['./add-recipe.component.css']
 })
-export class AddRecipeComponent implements OnInit {
+export class AddRecipeComponent implements OnInit, DeactivateComponent {
+
   recipeForm: FormGroup;
   editMode: boolean = false;
   ID: String;
@@ -19,9 +21,15 @@ export class AddRecipeComponent implements OnInit {
   isLoading: boolean = false;
   recipeDeatils: RecipeModel;
   length: number;
-  constructor(private recipeService: RecipeService, private routeParam: ActivatedRoute, private route: Router, private toastService: ToastService) {
 
-  }
+  constructor(
+    private recipeService: RecipeService,
+    private routeParam: ActivatedRoute,
+    private route: Router,
+    private toastService: ToastService
+  ) { }
+
+
 
   // subscribing queryParams
 
@@ -117,6 +125,7 @@ export class AddRecipeComponent implements OnInit {
     (<FormArray>this.recipeForm.get('ingredients')).clear(); // To delete all elemets inside the array..
   }
 
+
   addIngredient() {
     const Control = new FormGroup({
       'Item': new FormControl(null, Validators.required),
@@ -125,6 +134,7 @@ export class AddRecipeComponent implements OnInit {
 
     (<FormArray>this.recipeForm.get('ingredients')).push(Control);
   }
+
 
   onReset() {
     this.recipeForm.reset()
@@ -141,4 +151,10 @@ export class AddRecipeComponent implements OnInit {
     return (this.recipeForm.get('ingredients') as FormArray).controls
   }
 
+  canDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
+    if (this.recipeForm.valid) {
+      return confirm("Are you sure to navigate.")
+    }
+    return true
+  }
 }

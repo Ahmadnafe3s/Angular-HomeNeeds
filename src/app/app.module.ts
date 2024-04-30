@@ -8,7 +8,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { InteceptorService } from './auth/inteceptor.service';
 import { SharedModule } from './Shared/shared.module';
 
-
 @NgModule({
   declarations: [
     AppComponent,
