@@ -20,33 +20,48 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.authFormControl();
+
+    // will be avaliable on SignUp mode
+    this.authForm.get('fullName').disable()
   }
 
   private authFormControl() {
+    const fullName = '';
     const email = '';
     const password = '';
 
     this.authForm = new FormGroup({
+      'fullName': new FormControl(fullName, [Validators.required, Validators.maxLength(12)]),
       'email': new FormControl(email, [Validators.required, Validators.email]),
-      'password': new FormControl(password, [Validators.required, Validators.minLength(6), Validators.maxLength(10)])
+      'password': new FormControl(password, [Validators.required, Validators.minLength(6), Validators.maxLength(15)])
     })
   }
 
+
   loginMode() {
     this.isLogging = !this.isLogging;
+
+    if (this.isLogging) {
+      this.authForm.get('fullName').disable()
+      return true
+    }
+    this.authForm.get('fullName').enable() // on login false it will enable
   }
 
   onSubmit() {
+
     this.isLoading = true;
     this.errMessage = null;
+    const fullName = this.authForm.value.fullName
     const email = this.authForm.value.email
     const password = this.authForm.value.password
+
     let observ: Observable<authResponseData>;
 
     if (this.isLogging) {
       observ = this.authService.logIn(email, password)
     } else {
-      observ = this.authService.SignUp(email, password)
+      observ = this.authService.SignUp(fullName, email, password)
     }
 
     observ.subscribe(

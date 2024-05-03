@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 export interface authResponseData {
     idToken: string,
     email: string,
+    displayName: string
     refreshToken: string,
     expiresIn: string,
     localId: string,
@@ -16,21 +17,25 @@ export interface authResponseData {
 @Injectable({
     providedIn: ('root')
 })
+
 export class AuthService {
+
     Users = new BehaviorSubject<user>(null)
+
     constructor(private http: HttpClient, private route: Router) { }
 
-    SignUp(email: string, password: string) {
+    SignUp(fullName: string, email: string, password: string) {
         return this.http.post<authResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBsDAZK0HwEmvOF7HUipCdh_LDbXSPIi1Y',
             {
                 email: email,
                 password: password,
+                displayName: fullName,
                 returnSecureToken: true
             }
         )
             .pipe(catchError(this.HandleError), tap(
                 resData => {
-                    this.UserData(resData.email, resData.localId, resData.idToken, +resData.expiresIn)
+                    this.UserData(resData.email, resData.localId, resData.displayName, resData.idToken, +resData.expiresIn)
                 }
             ))
     }
@@ -44,15 +49,25 @@ export class AuthService {
             }
         ).pipe(catchError(this.HandleError), tap(
             resData => {
-                this.UserData(resData.email, resData.localId, resData.idToken, +resData.expiresIn)
+                this.UserData(resData.email, resData.localId, resData.displayName, resData.idToken, +resData.expiresIn)
             }
         ))
 
     }
 
-    private UserData(email, id, token, expiration) {
+
+    resetPassword(email: string) {
+        return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBsDAZK0HwEmvOF7HUipCdh_LDbXSPIi1Y',
+            {
+                email: email,
+                requestType: "PASSWORD_RESET"
+            }).pipe(catchError(this.HandleError))
+    }
+
+
+    private UserData(email, id, displayName, token, expiration) {
         const expiresIn = new Date(new Date().getTime() + expiration * 1000);
-        const User = new user(email, id, token, expiresIn);
+        const User = new user(email, id, displayName, token, expiresIn);
         this.Users.next(User);
         this.autoLogout(expiration * 1000);
 
@@ -62,17 +77,20 @@ export class AuthService {
 
     autoLogin() {
         //Type always should be as local storage
-        const USERDATA: { email: string, id: string, _token: string, _tokenExpirationDate: string } = JSON.parse(localStorage.getItem('userData'));
+        const USERDATA: { email: string, id: string, displayName: string, _token: string, _tokenExpirationDate: string } = JSON.parse(localStorage.getItem('userData'));
+
+        //if localstorage doesnt have data then always logout..
         if (!USERDATA) {
             return;
         }
 
-        const loadedUser = new user(USERDATA.email, USERDATA.id, USERDATA._token, new Date(USERDATA._tokenExpirationDate))
+        const loadedUser = new user(USERDATA.email, USERDATA.id, USERDATA.displayName, USERDATA._token, new Date(USERDATA._tokenExpirationDate))
+
 
 
         if (loadedUser.token) {
             const expirationDate = new Date(USERDATA._tokenExpirationDate).getTime() - new Date().getTime()
-            this.autoLogout(expirationDate);
+            this.autoLogout(expirationDate); // if token exipration has time then it will login as long as token gets expires.
             this.Users.next(loadedUser);
         }
 

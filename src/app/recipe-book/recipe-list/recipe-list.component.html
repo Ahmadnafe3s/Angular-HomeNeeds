@@ -9,7 +9,7 @@
       </div>
 
 
-      <div class="col-md-6 mt-5 mt-md-0 text-center">
+      <div class="col-md-6 mt-5  mt-md-0 text-center">
         <h1 class="heading"><span style="color: var(--highlight);">H</span>ome <span style="color: var(--highlight);">N</span>eeds</h1>
         <p class=" title">An amazing application for managing recipes and Shopping lists</p>
       </div>
@@ -25,7 +25,7 @@
 <div class="container my-5" *ngIf="!ErrorMsg && !isLoading">
   <div class="row justify-content-center">
 
-    <article class="card mt-5 mx-md-5 my-3 col-9 col-sm-5 col-lg-3" *ngFor="let RecipeList of recipeList">
+    <article class="card mt-5 mx-3 mx-md-5 my-3 col-9 col-sm-5 col-lg-3" *ngFor="let RecipeList of recipeList">
 
       <div class="card-img">
         <img src="{{RecipeList.Image}}" class="card-imgs pv delete">

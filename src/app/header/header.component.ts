@@ -12,18 +12,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   @ViewChild('checkbox') checkbox: ElementRef;
 
-  isAuthenticated = false;
+  isAuthenticated;
   isNavopen = false;
   obser: Subscription;
   logMsg: string | null = null;
-
+  displayName: string;
 
   constructor(private recipeService: RecipeService, private authService: AuthService, private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.obser = this.authService.Users.subscribe(
       user => {
-        this.isAuthenticated = !user ? false : true;
+        this.isAuthenticated = user; // if user is avaliable then will consider true otherwise false.
+        if (user) {
+          this.displayName = user.displayName;
+        }
       }
     )
   }

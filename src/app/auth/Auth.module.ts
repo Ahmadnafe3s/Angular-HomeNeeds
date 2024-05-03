@@ -1,16 +1,15 @@
 import { NgModule } from "@angular/core";
 import { AuthComponent } from "./auth.component";
-import { ReactiveFormsModule } from "@angular/forms";
-import { RouterModule } from "@angular/router";
-import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "../Shared/shared.module";
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { AuthRouterModule } from "./auth-router.module";
 
 @NgModule({
-    declarations:[
-        AuthComponent
+    declarations: [
+        AuthComponent,
+        ForgetPasswordComponent
     ],
-    imports:[ReactiveFormsModule ,SharedModule, RouterModule.forChild([
-        {path: '' , component : AuthComponent}
-    ])]
+    imports: [ReactiveFormsModule, SharedModule, AuthRouterModule , FormsModule]
 })
-export class AuthModule{}
+export class AuthModule { }
