@@ -30,8 +30,9 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
+              "src/styles.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+              "node_modules/aos/dist/aos.css"
             ],
             "scripts": []
           },
@@ -97,8 +98,9 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
+              "src/styles.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+               "node_modules/aos/dist/aos.css"
             ],
             "scripts": []
           }

@@ -67,9 +67,13 @@ export class AuthComponent implements OnInit {
     observ.subscribe(
       () => {
         this.isLoading = false;
-        this.toastService.Toast.next({ type: 'success', message: 'Successfully Login', duration: 3000 })
         this.route.navigate(['/recipeList']);
         this.authForm.reset()
+        if (this.isLogging) {
+          this.toastService.Toast.next({ type: 'success', message: 'Successfully Login', duration: 3000 })
+          return
+        }
+        this.toastService.Toast.next({ type: 'success', message: 'Account been registred.', duration: 3000 })
       },
       err => {
         this.isLoading = false;

@@ -84,6 +84,13 @@
   font-size: clamp(15px , 3vw , 18px);
 }
 
+.error-win{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% , -50%);
+}
+
 @media screen and (min-width : 769px) {
   .img-container {
     height: 300px;

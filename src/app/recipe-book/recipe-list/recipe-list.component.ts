@@ -17,6 +17,8 @@ export class RecipeListComponent implements OnInit {
 
 
   constructor(private recipeService: RecipeService, private router: Router, private active: ActivatedRoute) {
+  console.log(this.recipeList.length < 1);
+  
   }
 
 

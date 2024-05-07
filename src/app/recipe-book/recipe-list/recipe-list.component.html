@@ -1,4 +1,4 @@
-<section class="header" *ngIf="!ErrorMsg && !isLoading">
+<section class="header" *ngIf="!ErrorMsg && !isLoading" data-aos="fade-in">
   <div class="container">
     <div class="row justify-content-around align-items-center">
 
@@ -10,9 +10,11 @@
 
 
       <div class="col-md-6 mt-5  mt-md-0 text-center">
-        <h1 class="heading"><span style="color: var(--highlight);">H</span>ome <span style="color: var(--highlight);">N</span>eeds</h1>
+        <h1 class="heading"><span style="color: var(--highlight);">H</span>ome <span
+            style="color: var(--highlight);">N</span>eeds</h1>
         <p class="title">Your Kitchen Companion</p>
-        <p class="desc">Conquer meal planning with ease! Add delicious recipes and generate your shopping list in one place</p>
+        <p class="desc">Conquer meal planning with ease! Add delicious recipes and generate your shopping list in one
+          place</p>
       </div>
 
     </div>
@@ -26,12 +28,11 @@
 <div class="container my-5" *ngIf="!ErrorMsg && !isLoading">
   <div class="row justify-content-center">
 
-    <article class="card mt-5 mx-3 mx-md-5 my-3 col-9 col-sm-5 col-lg-3" *ngFor="let RecipeList of recipeList">
+    <article class="card mt-5 mx-3 mx-md-5 my-3 col-9 col-sm-5 col-lg-3" *ngFor="let RecipeList of recipeList" data-aos="fade-up">
 
       <div class="card-img">
         <img src="{{RecipeList.Image}}" class="card-imgs pv delete">
       </div>
-
 
       <section class="px-3 " style="margin-top: 50px;">
         <p class="fs-4" style="font-family: var(--heading);">{{RecipeList.RecipeName}}</p>
@@ -48,9 +49,16 @@
 </div>
 
 
+<!-- if no recipes -->
+<div *ngIf="recipeList.length < 1 && !isLoading && !ErrorMsg" class="alert alert-secondary w-50 mx-auto p-5">
+  <p class="fs-4 text-center">There is no recipes you have. please add recipes.</p>
+  <div class="text-center mt-5">
+    <button type="button" class="btn btn-success" routerLink="/Recipe-Form" fragment="new-recipe">Add Recipe</button>
+  </div>
+</div>
 
 <!-- Error Window -->
-<div class="text-center mt-5 alert alert-danger w-50 mx-auto" *ngIf="ErrorMsg">
+<div class="text-center mt-5 alert alert-danger w-50 mx-auto p-5 error-win" *ngIf="ErrorMsg">
   <h3>{{ErrorMsg}}</h3>
 </div>
 
