@@ -46,7 +46,7 @@ export class ShoppingListComponent implements OnInit {
     }
 
     this.delMsg = null;
-    this.toastService.Toast.next({ type: 'error', message: 'Data Deleted.', duration: 3000 })
+    this.toastService.Toast.next({ type: 'error', message: 'Ingredient Deleted.', duration: 3000 })
   }
 
   onClose() {
