@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
       offset: 200,
       delay: 100
     });
-
   }
 }
 

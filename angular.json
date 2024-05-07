@@ -17,6 +17,7 @@
             "outputPath": "dist/homeneeds",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "allowedCommonJsDependencies": ["lodash"],
             "polyfills": [
               "zone.js"
             ],

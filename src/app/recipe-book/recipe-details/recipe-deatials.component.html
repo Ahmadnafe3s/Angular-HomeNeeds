@@ -1,6 +1,6 @@
 <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
 
-<div class="image-frame" *ngIf="!isLoading">
+<div class="image-frame" *ngIf="!isLoading" data-aos="fade-in">
     <img [src]="RecipeDetails.Image" class="image">
 </div>
 

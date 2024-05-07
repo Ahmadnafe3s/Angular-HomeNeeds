@@ -67,7 +67,7 @@ export class RecipeDetailsComponent implements OnInit {
             list.push(Ingredients)
         }
         localStorage.setItem('Shopping', JSON.stringify(list))
-
         this.router.navigate(['shopping'])
+        this.toastService.Toast.next({ type: 'success', message: 'Ingrdients been sent to cart.', duration: 3000 })
     }
 }
