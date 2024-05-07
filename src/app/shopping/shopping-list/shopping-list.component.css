@@ -13,6 +13,7 @@
 }
 
 .shop-heading {
+  font-family: var(--font);
   font-weight: 600;
   font-size: clamp(25px, 3vw, 40px);
   text-align: center;

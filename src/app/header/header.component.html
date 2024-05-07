@@ -33,28 +33,31 @@
       </li>
 
 
+      <!-- Dropdown -->
       <li class="navbar-nav">
         <div class="nav-item dropdown mx-auto" *ngIf="isAuthenticated">
-          <a class="nav-link dropdown-toggle " role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Action
+
+          <!-- responsible for showing name -->
+          <a class="nav-link dropdown-toggle d-flex align-items-center" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class='bx bx-user-circle mx-1 fs-3'></i> <span>{{displayName}}</span>
           </a>
 
           <ul class="dropdown-menu ">
-            <li><a class="dropdown-item" [routerLink]="['/Recipe-Form']" fragment="New-Recipe"
-                (click)="onNavigate()">Add
-                Recipes</a></li>
+
+            <!-- add recipes -->
+            <li>
+              <a class="dropdown-item" [routerLink]="['/Recipe-Form']" fragment="New-Recipe" (click)="onNavigate()">Add
+                Recipes</a>
+            </li>
+
+            <!-- logout -->
+            <li class="nav-item" *ngIf="isAuthenticated">
+              <a class="nav-link active" (click)="onLogout()" (click)="onNavigate()">Logout</a>
+            </li>
           </ul>
         </div>
       </li>
-
-      <li class="nav-item" *ngIf="isAuthenticated">
-        <a class="nav-link active d-flex align-items-center displayName"><i class='bx bx-user-circle mx-1 fs-3'></i><span>{{displayName}}</span></a>
-      </li>
-
-      <li class="nav-item" *ngIf="isAuthenticated">
-        <a class="nav-link active" (click)="onLogout()" (click)="onNavigate()">Logout</a>
-      </li>
-
     </ul>
 
   </nav>

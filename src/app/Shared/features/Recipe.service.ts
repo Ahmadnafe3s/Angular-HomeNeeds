@@ -7,39 +7,37 @@ import { RecipeModel } from "src/app/recipe-book/recipe-model";
 @Injectable()
 
 export class RecipeService {
+  userID: string;
+  recipesApi: string = 'https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes'
 
-  toShopping = new Subject<any>()
-  recipeList: RecipeModel[] = [];
-  recipesApi: string = 'https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes.json'
-
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
 
   onPost(formValue) {
-    return this.http.post(this.recipesApi, formValue).pipe(catchError(this.handleError))
+    return this.http.post(`${this.recipesApi}.json`, formValue).pipe(catchError(this.handleError))
   }
 
-  onUpdate(ID: String, FormValue) {
-    return this.http.put(`https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes/${ID}.json`, FormValue).pipe(catchError(this.handleError))
+  onUpdate(RID: String, FormValue) {
+    return this.http.put(`${this.recipesApi}/${RID}.json`, FormValue).pipe(catchError(this.handleError))
   }
 
 
-  getRecipeDeatils(ID: String) {
-    return this.http.get<RecipeModel>(`https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes/${ID}.json`).pipe(map(recipeDetails => {
-      return { ID: ID, ...recipeDetails }
+  getRecipeDeatils(RID: String) {
+    return this.http.get<RecipeModel>(`${this.recipesApi}/${RID}.json`).pipe(map(recipeDetails => {
+      return { ID: RID, ...recipeDetails }
     }), catchError(this.handleError))
   }
 
-  deleteRecipe(ID: String) {
-    return this.http.delete(`https://recipe-book-431a4-default-rtdb.firebaseio.com/recipes/${ID}.json`)
+  deleteRecipe(RID: String) {
+    return this.http.delete(`${this.recipesApi}/${RID}.json`)
   }
 
 
   getRecipes() {
-    return this.http.get<RecipeModel[]>(this.recipesApi).pipe(map(RecipeList => {
+    return this.http.get<RecipeModel[]>(`${this.recipesApi}.json`).pipe(map(RecipeList => {
       let tempArry = []
       for (const Objkey in RecipeList) {
-        tempArry.push({ ID: Objkey, ...RecipeList[Objkey] })
+        tempArry.push({ RID: Objkey, ...RecipeList[Objkey] })
       }
       return tempArry
     }),

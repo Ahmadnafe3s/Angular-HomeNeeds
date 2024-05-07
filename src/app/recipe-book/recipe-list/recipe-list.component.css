@@ -75,6 +75,13 @@
 
 .title {
   color: gray;
+  font-weight: 600;
+  font-size: clamp(20px , 3vw , 25px);
+}
+
+.desc{
+  color: rgb(145, 145, 145);
+  font-size: clamp(15px , 3vw , 18px);
 }
 
 @media screen and (min-width : 769px) {

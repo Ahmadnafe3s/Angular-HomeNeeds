@@ -151,12 +151,4 @@ a {
     .nav-links li {
         margin-top: 15px;
     }
-
-    .displayName {
-        position: absolute;
-        top: 25%;
-        left: 50%;
-        transform: translate(-50%, -25%);
-        font-size: 20px;
-    }
 }

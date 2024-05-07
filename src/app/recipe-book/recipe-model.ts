@@ -1,7 +1,7 @@
 
 export class RecipeModel {
   constructor(
-    public ID: String,
+    public RID: String,
     public RecipeName: String,
     public Description: String,
     public Image: String,

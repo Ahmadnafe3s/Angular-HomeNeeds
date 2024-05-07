@@ -1,0 +1,28 @@
+.bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.status {
+  font-size: clamp(7px, 45vw, 260px);
+  font-weight: 600;
+  letter-spacing: 10px;
+}
+
+button {
+  background-color: #ff69b4;
+  /* Pink color for the button */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff4785;
+  /* Darker pink on hover */
+}

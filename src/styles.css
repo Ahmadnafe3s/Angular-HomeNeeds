@@ -3,12 +3,12 @@
 /* LOGO */
 @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
 
-/* Other Display */
-@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
-
-
 /* Font for Recipe Name in details */
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+/* font */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sacramento&display=swap');
+
 
 * {
   margin: 0;
@@ -17,7 +17,6 @@
 
 #bg {
   background-color: #e8e8e8;
-  font-family: "Fira Sans", sans-serif;
 }
 
 
@@ -30,6 +29,7 @@ input {
 :root {
   --highlight: rgb(6, 121, 0);
   --heading: "Lobster", sans-serif;
+  --font : "Fira Sans", sans-serif;
 }
 
 
@@ -43,5 +43,5 @@ input {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: transparent;
+  background-color: rgb(229, 255, 229);
 }

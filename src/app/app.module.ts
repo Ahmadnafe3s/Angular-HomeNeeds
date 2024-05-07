@@ -7,11 +7,13 @@ import { RouterModules } from "./Router.module";
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { InteceptorService } from './auth/inteceptor.service';
 import { SharedModule } from './Shared/shared.module';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
