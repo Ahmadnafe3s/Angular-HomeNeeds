@@ -9,7 +9,6 @@ import { NgToastModule } from "ng-angular-popup";
     declarations: [
         LoadingSpinnerComponent,
         ConfirmComponent
-
     ],
     imports: [CommonModule , NgToastModule],
     exports: [

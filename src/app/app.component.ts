@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import AOS from "aos";
 
@@ -11,11 +11,9 @@ import AOS from "aos";
 
 export class AppComponent implements OnInit {
 
-  title = 'homeneeds';
-  constructor(
-    private authService: AuthService,
-  ) { }
+  toastLoad = false;
 
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.autoLogin();
@@ -26,6 +24,9 @@ export class AppComponent implements OnInit {
       offset: 200,
       delay: 100
     });
+
+    // to fix apperance of toast notification uneccessary on reaload page..
+    this.toastLoad = true;
   }
 
 }
