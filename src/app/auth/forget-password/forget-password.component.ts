@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { ToastService } from 'src/app/Shared/Toast/Toast.service';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-forget-password',
@@ -11,16 +11,16 @@ import { Router } from '@angular/router';
 })
 export class ForgetPasswordComponent {
   isLoading = false;
-  constructor(private authService: AuthService, private toastService: ToastService, private router: Router) { }
+  constructor(private authService: AuthService, private toast: NgToastService, private router: Router) { }
   onSubmit(f: NgForm) {
     this.isLoading = true;
     this.authService.resetPassword(f.value.email).subscribe(res => {
-      this.toastService.Toast.next({ type: 'success', message: 'Email Sent.', duration: 3000 })
+      this.toast.info({ detail: "Info", summary: 'Email has been sent.', duration: 3000, position: 'topCenter' })
       this.isLoading = false
       this.router.navigate(['auth'])
     },
       err => {
-        this.toastService.Toast.next({ type: 'error', message: err, duration: 3000 })
+        this.toast.error({ detail: "Error", summary: err, duration: 3000, position: 'topCenter' })
         this.isLoading = false
       }
     )

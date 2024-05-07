@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ToastService } from 'src/app/Shared/Toast/Toast.service';
-import { RecipeService } from 'src/app/Shared/features/Recipe.service';
+import { NgToastService } from 'ng-angular-popup';
+
+
 
 @Component({
     selector: 'app-upsert',
@@ -16,7 +17,12 @@ export class UpsertComponent implements OnInit {
     ShoppingForm: FormGroup;
     msg: string | null = null;
 
-    constructor(private recipeService: RecipeService, private router: Router, private activeRoute: ActivatedRoute, private toastService: ToastService) { }
+    constructor(
+        private router: Router, 
+        private activeRoute: ActivatedRoute, 
+        private toast : NgToastService
+    ) { }
+
 
     ngOnInit(): void {
         this.ShoppingList = JSON.parse(localStorage.getItem('Shopping')) ? JSON.parse(localStorage.getItem('Shopping')) : [];
@@ -34,15 +40,14 @@ export class UpsertComponent implements OnInit {
 
             this.ShoppingList[this.Index] = this.ShoppingForm.value
             localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
-            this.toastService.Toast.next({ type: 'success', message: 'Ingredient Updated.', duration: 3000 })
+            this.toast.success({ detail: "Success", summary: 'Ingredient Updated.', duration: 3000, position: 'topCenter' })
             this.router.navigate(['shopping'])
 
         } else {
 
             this.ShoppingList.push(this.ShoppingForm.value);
             localStorage.setItem('Shopping', JSON.stringify(this.ShoppingList));
-            this.toastService.Toast.next({ type: 'success', message: 'Ingredient Saved.', duration: 3000 })
-            
+            this.toast.success({ detail: "Success", summary: 'Ingredient Been Saved.', duration: 3000, position: 'topCenter' })
         }
 
         this.ShoppingForm.reset()

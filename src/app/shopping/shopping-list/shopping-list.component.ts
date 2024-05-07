@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from "../../Shared/features/Recipe.service";
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastService } from 'src/app/Shared/Toast/Toast.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-shopping-list',
@@ -16,10 +16,11 @@ export class ShoppingListComponent implements OnInit {
   index: number;
   deleteAll: boolean = false;
 
-  constructor(private recipeService: RecipeService,
+  constructor(
+    private recipeService: RecipeService,
     private route: Router,
     private active: ActivatedRoute,
-    private toastService: ToastService
+    private toast : NgToastService
   ) { }
 
   
@@ -46,7 +47,7 @@ export class ShoppingListComponent implements OnInit {
     }
 
     this.delMsg = null;
-    this.toastService.Toast.next({ type: 'error', message: 'Ingredient Deleted.', duration: 3000 })
+    this.toast.info({ detail: "Info", summary: 'Ingredient Deleted.', duration: 3000, position: 'topCenter' })
   }
 
   onClose() {

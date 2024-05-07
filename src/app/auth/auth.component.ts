@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, MaxLengthValidator, MinLengthValidator, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService, authResponseData } from './auth.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { ToastService } from '../Shared/Toast/Toast.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-auth',
@@ -16,7 +16,11 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   errMessage = null;
 
-  constructor(private authService: AuthService, private route: Router, private toastService: ToastService) { }
+  constructor(
+    private authService: AuthService,
+    private route: Router,
+    private toast: NgToastService // injecting toast service
+  ) { }
 
   ngOnInit(): void {
     this.authFormControl();
@@ -65,19 +69,22 @@ export class AuthComponent implements OnInit {
     }
 
     observ.subscribe(
+
       () => {
         this.isLoading = false;
         this.route.navigate(['/recipeList']);
         this.authForm.reset()
+
         if (this.isLogging) {
-          this.toastService.Toast.next({ type: 'success', message: 'Successfully Login', duration: 3000 })
+          this.toast.success({ detail: "Success", summary: 'Successfully Login', duration: 3000, position: 'topCenter' })
           return
         }
-        this.toastService.Toast.next({ type: 'success', message: 'Account been registred.', duration: 3000 })
+
+        this.toast.success({ detail: "Success", summary: 'Account been registred.', duration: 3000, position: 'topCenter' })
       },
       err => {
         this.isLoading = false;
-        this.toastService.Toast.next({ type: 'error', message: err, duration: 3000 })
+        this.toast.error({ detail: "Error", summary: err, duration: 3000, position: 'topCenter' })
       }
     )
   }

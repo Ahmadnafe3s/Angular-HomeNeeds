@@ -3,9 +3,9 @@ import { RecipeService } from "../Shared/features/Recipe.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RecipeModel } from '../recipe-book/recipe-model';
-import { ToastService } from '../Shared/Toast/Toast.service';
 import { DeactivateComponent } from './can-deactivate.guard';
 import { Observable } from 'rxjs';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-add-recipe',
@@ -26,7 +26,7 @@ export class AddRecipeComponent implements OnInit, DeactivateComponent {
     private recipeService: RecipeService,
     private routeParam: ActivatedRoute,
     private route: Router,
-    private toastService: ToastService
+    private toast: NgToastService
   ) { }
 
 
@@ -49,7 +49,7 @@ export class AddRecipeComponent implements OnInit, DeactivateComponent {
         this.isLoading = false
       },
         err => {
-          this.toastService.Toast.next({ type: 'error', message: err, duration: 3000 })
+          this.toast.error({ detail: "Error", summary: err, duration: 3000, position: 'topCenter' })
         })
     }
 
@@ -100,11 +100,11 @@ export class AddRecipeComponent implements OnInit, DeactivateComponent {
     if (this.editMode) {
 
       this.recipeService.onUpdate(this.ID, this.recipeForm.value).subscribe(() => {
-        this.toastService.Toast.next({ type: 'success', message: 'Recipe Got Updated.', duration: 3000 })
+        this.toast.success({ detail: "Success", summary: "Recipe has been Updated", duration: 3000, position: 'topCenter' })
         this.isLoading = false;
         this.route.navigate(['recipeList/details', this.ID])
       }, err => {
-        this.toastService.Toast.next({ type: 'error', message: err, duration: 3000 })
+        this.toast.error({ detail: "Error", summary: err, duration: 3000, position: 'topCenter' })
         this.isLoading = false;
       })
 
@@ -112,11 +112,15 @@ export class AddRecipeComponent implements OnInit, DeactivateComponent {
     else {
 
       this.recipeService.onPost(this.recipeForm.value).subscribe(() => {
-        this.toastService.Toast.next({ type: 'success', message: 'Recipe Got Saved.', duration: 3000 })
+
+        this.toast.success({ detail: "Success", summary: "Recipe has been Saved.", duration: 3000, position: 'topCenter' })
         this.isLoading = false;
+
       }, err => {
-        this.toastService.Toast.next({ type: 'error', message: err, duration: 3000 })
+  
+        this.toast.error({ detail: "Error", summary: err, duration: 3000, position: 'topCenter' })
         this.isLoading = false;
+        
       })
 
     }
